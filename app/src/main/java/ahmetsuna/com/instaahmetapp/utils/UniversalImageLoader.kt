@@ -15,6 +15,7 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener
 
+//internetten image çekme kütüphanesi
 class UniversalImageLoader(val mContext: Context) {
 
     val config: ImageLoaderConfiguration
@@ -39,7 +40,7 @@ class UniversalImageLoader(val mContext: Context) {
 
         private val defaultImage = R.drawable.ic_profile
 
-        fun setImage(imgURL: String, imageView: ImageView, mProgressBar: ProgressBar?, ilkKisim: String) {
+        fun setImage(imgURL: String, imageView: ImageView, mProgressBar: ProgressBar?, ilkKisim: String?) {
 
             //imgUrl:facebook.com/images/logo.jpeg
             //ilkKisim:http//

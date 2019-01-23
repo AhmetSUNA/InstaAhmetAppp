@@ -164,6 +164,15 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:id="@+id/bottomNavigationSettings">
         </com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx>
+        <ProgressBar
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/progressBar"
+                app:layout_constraintTop_toTopOf="@+id/circleProfileImage"
+                app:layout_constraintStart_toStartOf="@+id/circleProfileImage"
+                app:layout_constraintBottom_toBottomOf="@+id/circleProfileImage"
+                app:layout_constraintEnd_toEndOf="@+id/circleProfileImage"/>
 
     </android.support.constraint.ConstraintLayout>
 

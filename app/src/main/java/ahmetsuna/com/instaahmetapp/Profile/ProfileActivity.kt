@@ -2,6 +2,7 @@ package ahmetsuna.com.instaahmetapp.Profile
 
 import ahmetsuna.com.instaahmetapp.R
 import ahmetsuna.com.instaahmetapp.utils.BottomNavigationViewHelper
+import ahmetsuna.com.instaahmetapp.utils.UniversalImageLoader
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -19,9 +20,18 @@ class ProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
 
-
         setupNavigationView()
         setupToolbar()
+        setupProfilePhoto()
+    }
+
+    private fun setupProfilePhoto() {
+
+        //https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Android_robot.svg/872px-Android_robot.svg.png
+
+        var imgURL ="upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Android_robot.svg/872px-Android_robot.svg.png"
+
+        UniversalImageLoader.setImage(imgURL, circleProfileImage, progressBar, "https://")
     }
 
     private fun setupToolbar() {

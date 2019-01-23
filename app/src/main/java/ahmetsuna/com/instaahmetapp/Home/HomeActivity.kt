@@ -3,8 +3,10 @@ package ahmetsuna.com.instaahmetapp.Home
 import ahmetsuna.com.instaahmetapp.R
 import ahmetsuna.com.instaahmetapp.utils.BottomNavigationViewHelper
 import ahmetsuna.com.instaahmetapp.utils.HomePagerAdapter
+import ahmetsuna.com.instaahmetapp.utils.UniversalImageLoader
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import com.nostra13.universalimageloader.core.ImageLoader
 import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : AppCompatActivity() {
@@ -16,6 +18,7 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
+        initImageLoader()
         setupNavigationView()
         setupHomeViewPager()
     }
@@ -41,5 +44,11 @@ class HomeActivity : AppCompatActivity() {
 
         //viewPager'ın homefragmet ile başlamasını sağladık
         homeViewPager.setCurrentItem(1)
+    }
+
+    private fun initImageLoader(){
+
+        var universalImageLoader = UniversalImageLoader(this)
+        ImageLoader.getInstance().init(universalImageLoader.config)
     }
 }
