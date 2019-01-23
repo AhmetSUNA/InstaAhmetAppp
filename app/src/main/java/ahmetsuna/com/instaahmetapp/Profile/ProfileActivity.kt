@@ -5,7 +5,9 @@ import ahmetsuna.com.instaahmetapp.utils.BottomNavigationViewHelper
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.View
 import kotlinx.android.synthetic.main.activity_profile.*
+
 
 
 class ProfileActivity : AppCompatActivity() {
@@ -28,8 +30,22 @@ class ProfileActivity : AppCompatActivity() {
             var intent = Intent(this,ProfileSettingsActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
             startActivity(intent)
         }
+
+        tvProfilDuzenleButunu.setOnClickListener {
+
+            profileRoot.visibility = View.GONE
+            var transaction = supportFragmentManager.beginTransaction()
+            transaction.replace(R.id.profileContainer, ProfileEditFragment())
+            transaction.addToBackStack("editProfileFragmentEklendi")
+            transaction.commit()
+
+        }
     }
 
+    override fun onBackPressed() {
+        profileRoot.visibility = View.VISIBLE
+        super.onBackPressed()
+    }
 
     private fun setupNavigationView() {
         BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationSettings)
