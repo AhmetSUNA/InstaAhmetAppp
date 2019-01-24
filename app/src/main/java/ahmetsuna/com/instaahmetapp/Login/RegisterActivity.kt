@@ -1,6 +1,7 @@
 package ahmetsuna.com.instaahmetapp.Login
 
 import ahmetsuna.com.instaahmetapp.R
+import ahmetsuna.com.instaahmetapp.utils.EventBusDataEvents
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
@@ -9,6 +10,7 @@ import android.text.InputType
 import android.text.TextWatcher
 import android.view.View
 import kotlinx.android.synthetic.main.activity_register.*
+import org.greenrobot.eventbus.EventBus
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -76,5 +78,36 @@ class RegisterActivity : AppCompatActivity() {
             }
         })
 
+        btnIleri.setOnClickListener {
+
+            if(etGirisYontemi.hint.toString().equals("Telefon")){
+
+                loginRoot.visibility = View.GONE
+                loginContainer.visibility = View.VISIBLE
+                var transaction = supportFragmentManager.beginTransaction()
+                transaction.replace(R.id.loginContainer, TelefonKoduGirFragment())
+                transaction.addToBackStack("telefonKoduGirFragmenEklendi")
+                transaction.commit()
+
+                EventBus.getDefault().postSticky(EventBusDataEvents.TelefonNoGonder(etGirisYontemi.text.toString()))
+
+            }else{
+                loginRoot.visibility = View.GONE
+                loginContainer.visibility = View.VISIBLE
+                var transaction = supportFragmentManager.beginTransaction()
+                transaction.replace(R.id.loginContainer, EmailGirisYontemiFragment())
+                transaction.addToBackStack("emailileGirisFragmenEklendi")
+                transaction.commit()
+
+                EventBus.getDefault().postSticky(EventBusDataEvents.EmailGonder(etGirisYontemi.text.toString()))
+            }
+
+        }
+
+    }
+
+    override fun onBackPressed() {
+        loginRoot.visibility = View.VISIBLE
+        super.onBackPressed()
     }
 }
