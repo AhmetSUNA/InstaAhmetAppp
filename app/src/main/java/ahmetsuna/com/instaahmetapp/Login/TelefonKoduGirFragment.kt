@@ -10,6 +10,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.Toast
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.PhoneAuthCredential
@@ -26,34 +27,29 @@ class TelefonKoduGirFragment : Fragment() {
     lateinit var callbacks:PhoneAuthProvider.OnVerificationStateChangedCallbacks
     var verificationID = ""
     var gelenKod = ""
+    lateinit var progressBar:ProgressBar
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         var view = inflater.inflate(R.layout.fragment_telefon_kodu_gir, container, false)
 
         view.tvKullaniciTelNo.setText(gelenTelNo)
-
+        progressBar=view.pbTelefonKoduGir
         setupCallback()
 
         view.btnTelKodIleri.setOnClickListener {
 
             if(gelenKod.equals(etOnayKodu.text.toString())){
 
+                EventBus.getDefault().postSticky(EventBusDataEvents.KayitBilgileriniGonder(gelenTelNo,null,verificationID,gelenKod,false))
                 var transaction = activity!!.supportFragmentManager.beginTransaction()
                 transaction.replace(R.id.loginContainer, KayitFragment())
                 transaction.addToBackStack("kayitFragmenEklendi")
                 transaction.commit()
 
             }else{
-                var transaction = activity!!.supportFragmentManager.beginTransaction()
-                transaction.replace(R.id.loginContainer, KayitFragment())
-                transaction.addToBackStack("kayitFragmenEklendi")
-                transaction.commit()
                 Toast.makeText(activity,"kod hatalı",Toast.LENGTH_SHORT).show()
-
             }
         }
 
@@ -71,21 +67,31 @@ class TelefonKoduGirFragment : Fragment() {
 
         callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
+            //başarılı şekilde code gelince tetiklenen method
             override fun onVerificationCompleted(credential: PhoneAuthCredential) {
 
-                gelenKod = credential.smsCode!!
-
+                if(!credential.smsCode.isNullOrEmpty()) {
+                    gelenKod = credential.smsCode!!
+                    progressBar.visibility=View.INVISIBLE
+                    Log.e("HATA","on verification completed sms gelmiş: " + gelenKod)
+                }else{
+                    Log.e("HATA","on verification completed sms gelmeyecek")
+                }
             }
 
+            //bir hata durumunda tetiklenecek method
             override fun onVerificationFailed(e: FirebaseException) {
 
                 Log.e("hata","hata çıktısı:" + e.message)
 
             }
 
+            //sms gönderilince tetiklenen method
             override fun onCodeSent(verificationId: String?, token: PhoneAuthProvider.ForceResendingToken) {
 
                 verificationID = verificationId!!
+                progressBar.visibility=View.VISIBLE
+                Log.e("HATA","oncodesent çalıştı")
 
             }
         }
@@ -93,9 +99,9 @@ class TelefonKoduGirFragment : Fragment() {
     }
 
     @Subscribe(sticky = true)
-    internal fun onTelefonNoEven(telefonNumarasi: EventBusDataEvents.TelefonNoGonder){
+    internal fun onTelefonNoEven(kayitBilgileri: EventBusDataEvents.KayitBilgileriniGonder){
 
-        gelenTelNo = telefonNumarasi.telNo
+        gelenTelNo = kayitBilgileri.telNo!!
         Log.e("ahmet", "gelen tel no: " + gelenTelNo)
     }
 

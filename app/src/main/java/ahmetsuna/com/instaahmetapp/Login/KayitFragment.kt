@@ -10,11 +10,17 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 
 
 class KayitFragment : Fragment() {
+
+    var telNo = ""
+    var verification = ""
+    var gelenKod = ""
+    var gelenEmail=""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,10 +30,21 @@ class KayitFragment : Fragment() {
     }
 
     @Subscribe(sticky = true)
-    internal fun onTelefonNoEven(emailAdres: EventBusDataEvents.EmailGonder){
+    internal fun onKayitEvent(kayitBilgileri: EventBusDataEvents.KayitBilgileriniGonder) {
 
-        var gelenEmail = emailAdres.email
-        Log.e("ahmet", "gelen tel no: " + gelenEmail)
+        if (kayitBilgileri.emailKayit == true) {
+            gelenEmail = kayitBilgileri.email!!
+            Toast.makeText(activity,"gelenEmail: " + gelenEmail ,Toast.LENGTH_SHORT).show()
+            Log.e("ahmet", "gelen tel no: " + gelenEmail)
+        } else {
+            telNo=kayitBilgileri.telNo!!
+            verification = kayitBilgileri.verificationID!!
+            gelenKod = kayitBilgileri.code!!
+
+            Toast.makeText(activity,"gelencode: " + gelenKod + "verificatinoID: " + verification,Toast.LENGTH_SHORT).show()
+        }
+
+
     }
 
     override fun onAttach(context: Context?) {

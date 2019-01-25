@@ -72,7 +72,7 @@ class RegisterActivity : AppCompatActivity(), FragmentManager.OnBackStackChanged
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
 
-                if(start+before+count >= 10){
+                if(s!!.length >= 10){
 
                     btnIleri.isEnabled = true
                     btnIleri.setTextColor(ContextCompat.getColor(this@RegisterActivity,R.color.beyaz))
@@ -98,7 +98,7 @@ class RegisterActivity : AppCompatActivity(), FragmentManager.OnBackStackChanged
                 transaction.addToBackStack("telefonKoduGirFragmenEklendi")
                 transaction.commit()
 
-                EventBus.getDefault().postSticky(EventBusDataEvents.TelefonNoGonder(etGirisYontemi.text.toString()))
+                EventBus.getDefault().postSticky(EventBusDataEvents.KayitBilgileriniGonder(etGirisYontemi.text.toString(),null,null,null, false))
 
             }else{
                 loginRoot.visibility = View.GONE
@@ -108,7 +108,7 @@ class RegisterActivity : AppCompatActivity(), FragmentManager.OnBackStackChanged
                 transaction.addToBackStack("emailileGirisFragmenEklendi")
                 transaction.commit()
 
-                EventBus.getDefault().postSticky(EventBusDataEvents.EmailGonder(etGirisYontemi.text.toString()))
+                EventBus.getDefault().postSticky(EventBusDataEvents.KayitBilgileriniGonder(null,etGirisYontemi.text.toString(),null,null, true))
             }
 
         }
