@@ -68,7 +68,7 @@
         <EditText
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:inputType="number"
+                android:inputType="number|text"
                 android:ems="10"
                 android:background="@drawable/register_edit_text"
                 android:padding="14dp"

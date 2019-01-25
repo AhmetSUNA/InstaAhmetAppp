@@ -1,15 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             android:background="@color/mavi"
              tools:context=".Login.TelefonKoduGirFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Telefon Kodu Girilecek"/>
-
-</FrameLayout>
+            android:text="ONAY KODUNU GİR"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView8" android:textStyle="bold"
+            android:textColor="@color/siyah" android:textSize="16sp" android:layout_marginTop="56dp"
+            app:layout_constraintTop_toTopOf="parent" android:layout_marginStart="8dp"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.498"/>
+    <TextView
+            android:text="Şu numaraya gönderdiğimiz 6 haneli kodu gir:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView16" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+            android:layout_marginTop="16dp" app:layout_constraintTop_toBottomOf="@+id/textView8"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+            android:textColor="@color/siyah"/>
+    <TextView
+            android:text="245 896 78 65"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvKullaniciTelNo" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+            android:layout_marginTop="16dp" app:layout_constraintTop_toBottomOf="@+id/textView16"
+            android:textColor="@color/siyah"/>
+    <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:background="@drawable/register_edit_text"
+            android:padding="16dp"
+            android:id="@+id/etOnayKodu"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/tvKullaniciTelNo" android:hint="Onay Kodu"/>
+    <Button
+            android:text="ILERI"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/register_button"
+            android:textAllCaps="false"
+            android:textColor="@color/sonukmavi"
+            android:id="@+id/btnTelKodIleri" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp" android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/etOnayKodu"/>
+</android.support.constraint.ConstraintLayout>

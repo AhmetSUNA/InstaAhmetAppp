@@ -3,6 +3,7 @@ package ahmetsuna.com.instaahmetapp.Login
 import ahmetsuna.com.instaahmetapp.R
 import ahmetsuna.com.instaahmetapp.utils.EventBusDataEvents
 import android.os.Bundle
+import android.support.v4.app.FragmentManager
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.text.Editable
@@ -12,17 +13,23 @@ import android.view.View
 import kotlinx.android.synthetic.main.activity_register.*
 import org.greenrobot.eventbus.EventBus
 
-class RegisterActivity : AppCompatActivity() {
+class RegisterActivity : AppCompatActivity(), FragmentManager.OnBackStackChangedListener {
+
+    lateinit var manager:FragmentManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
+
+        manager = supportFragmentManager
+        manager.addOnBackStackChangedListener(this)
 
         init()
     }
 
     private fun init() {
 
+        //e-posta ile giriş yapılacak ise
         tvEposta.setOnClickListener {
 
             viewTelefon.visibility = View.INVISIBLE
@@ -36,7 +43,7 @@ class RegisterActivity : AppCompatActivity() {
             btnIleri.setBackgroundResource(R.drawable.register_button)
 
         }
-
+        //telno ile giriş yapılacak ise
         tvTelefon.setOnClickListener {
 
             viewTelefon.visibility = View.VISIBLE
@@ -51,6 +58,7 @@ class RegisterActivity : AppCompatActivity() {
 
         }
 
+        //giriş yöntemi telno mu e-posta mı
         etGirisYontemi.addTextChangedListener(object : TextWatcher{
             override fun afterTextChanged(s: Editable?) {
 
@@ -78,6 +86,7 @@ class RegisterActivity : AppCompatActivity() {
             }
         })
 
+        //telno veya e-posta girildikten sonra ileri butonuna basıldığında yapılacaklar
         btnIleri.setOnClickListener {
 
             if(etGirisYontemi.hint.toString().equals("Telefon")){
@@ -95,7 +104,7 @@ class RegisterActivity : AppCompatActivity() {
                 loginRoot.visibility = View.GONE
                 loginContainer.visibility = View.VISIBLE
                 var transaction = supportFragmentManager.beginTransaction()
-                transaction.replace(R.id.loginContainer, EmailGirisYontemiFragment())
+                transaction.replace(R.id.loginContainer, KayitFragment())
                 transaction.addToBackStack("emailileGirisFragmenEklendi")
                 transaction.commit()
 
@@ -106,8 +115,14 @@ class RegisterActivity : AppCompatActivity() {
 
     }
 
-    override fun onBackPressed() {
-        loginRoot.visibility = View.VISIBLE
-        super.onBackPressed()
+    //Bir hata durumunda doğru biçimde adım adım geri gitme
+    override fun onBackStackChanged() {
+        val elemanSayisi = manager.backStackEntryCount
+
+        if(elemanSayisi==0){
+            loginRoot.visibility = View.VISIBLE
+        }
+
     }
+
 }
