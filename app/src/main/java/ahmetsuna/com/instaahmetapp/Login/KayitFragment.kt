@@ -14,6 +14,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.AuthResult
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.fragment_kayit.*
 import kotlinx.android.synthetic.main.fragment_kayit.view.*
 import org.greenrobot.eventbus.EventBus
@@ -26,21 +32,52 @@ class KayitFragment : Fragment() {
     var verification = ""
     var gelenKod = ""
     var gelenEmail=""
+    var emailIleKayitIslemi = true
+    lateinit var myAuth: FirebaseAuth
+    lateinit var myRef:DatabaseReference
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-        var view =inflater.inflate(R.layout.fragment_kayit, container, false)
+        var view = inflater.inflate(R.layout.fragment_kayit, container, false)
+
+        myAuth = FirebaseAuth.getInstance()
+        myRef = FirebaseDatabase.getInstance().reference
 
         view.etAdSoyad.addTextChangedListener(watcher)
         view.etSifre.addTextChangedListener(watcher)
         view.etKullaniciAdi.addTextChangedListener(watcher)
 
+        view.btnGiris.setOnClickListener {
+
+            //kullanıcı email ile kayıt olmak istiyor
+            if (emailIleKayitIslemi) {
+
+                var sifre = view.etSifre.text.toString()
+
+                myAuth.createUserWithEmailAndPassword(gelenEmail,sifre)
+                    .addOnCompleteListener(object : OnCompleteListener<AuthResult>{
+                        override fun onComplete(p0: Task<AuthResult>) {
+                            if (p0.isSuccessful){
+                                Toast.makeText(activity,"Oturum açıldı", Toast.LENGTH_SHORT).show()
+                            }else{
+                                Toast.makeText(activity,"Oturum açılamadı:" + p0.exception, Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    })
+            }
+
+            //kullanıcı telefon no ile kayıt olmak istiyor
+            else {
+
+            }
+
+
+        }
         return view
     }
-
     var watcher : TextWatcher = object : TextWatcher{
         override fun afterTextChanged(p0: Editable?) {
 
@@ -74,14 +111,19 @@ class KayitFragment : Fragment() {
         }
     }
 
+
+    ///////////////////////////////////EVENTBUS///////////////////////////////
+
     @Subscribe(sticky = true)
     internal fun onKayitEvent(kayitBilgileri: EventBusDataEvents.KayitBilgileriniGonder) {
 
         if (kayitBilgileri.emailKayit == true) {
+            emailIleKayitIslemi=true
             gelenEmail = kayitBilgileri.email!!
             Toast.makeText(activity,"gelenEmail: " + gelenEmail ,Toast.LENGTH_SHORT).show()
             Log.e("ahmet", "gelen tel no: " + gelenEmail)
         } else {
+            emailIleKayitIslemi=false
             telNo=kayitBilgileri.telNo!!
             verification = kayitBilgileri.verificationID!!
             gelenKod = kayitBilgileri.code!!
@@ -101,5 +143,6 @@ class KayitFragment : Fragment() {
         super.onDetach()
         EventBus.getDefault().unregister(this)
     }
+    ///////////////////////////////////EVENTBUS///////////////////////////////
 
 }

@@ -114,7 +114,7 @@ class RegisterActivity : AppCompatActivity(), FragmentManager.OnBackStackChanged
                 EventBus.getDefault().postSticky(EventBusDataEvents.KayitBilgileriniGonder(etGirisYontemi.text.toString(),null,null,null, false))
 
             }else{
-                if (isValidTelefon((etGirisYontemi.text.toString()))){
+                if (isValidEmail((etGirisYontemi.text.toString()))){
                     loginRoot.visibility = View.GONE
                     loginContainer.visibility = View.VISIBLE
                     var transaction = supportFragmentManager.beginTransaction()
