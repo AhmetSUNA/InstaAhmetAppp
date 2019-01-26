@@ -63,12 +63,32 @@ class KayitFragment : Fragment() {
             if (emailIleKayitIslemi) {
 
                 var sifre = view.etSifre.text.toString()
+                var userName = view.etKullaniciAdi.text.toString()
+                var adSoyad = view.etAdSoyad.text.toString()
 
                 myAuth.createUserWithEmailAndPassword(gelenEmail,sifre)
                     .addOnCompleteListener(object : OnCompleteListener<AuthResult>{
                         override fun onComplete(p0: Task<AuthResult>) {
                             if (p0.isSuccessful){
                                 Toast.makeText(activity,"Oturum email ile açıldı"+ myAuth.currentUser!!.uid, Toast.LENGTH_SHORT).show()
+
+                                var userID =myAuth.currentUser?.uid.toString()
+
+                                //oturum açan kullanıcının verilerini database'e kayıt edelim
+                                var kaydedilecekKullanici = Users(gelenEmail,sifre,userName,adSoyad,userID)
+
+                                myRef.child("users").child(userID).setValue(kaydedilecekKullanici)
+                                    .addOnCompleteListener(object : OnCompleteListener<Void>{
+                                        override fun onComplete(p0: Task<Void>) {
+                                            if (p0!!.isSuccessful){
+                                                Toast.makeText(activity,"Kullanıcı kayıt edildi" , Toast.LENGTH_SHORT).show()
+                                            }else{
+                                                Toast.makeText(activity,"Kullanıcı kayıt edilmedi" , Toast.LENGTH_SHORT).show()
+                                            }
+                                        }
+
+                                    })
+
                             }else{
                                 Toast.makeText(activity,"Oturum açılamadı:" + p0.exception, Toast.LENGTH_SHORT).show()
                             }
@@ -83,30 +103,31 @@ class KayitFragment : Fragment() {
                 var userName = view.etKullaniciAdi.text.toString()
                 var adSoyad = view.etAdSoyad.text.toString()
 
-                myAuth.createUserWithEmailAndPassword(gelenEmail,sifre)
+
+                var sahteEmail = telNo+"@ahmet.com" //+905436756754
+
+                myAuth.createUserWithEmailAndPassword(sahteEmail,sifre)
                     .addOnCompleteListener(object : OnCompleteListener<AuthResult>{
                         override fun onComplete(p0: Task<AuthResult>) {
                             if (p0.isSuccessful){
                                 Toast.makeText(activity,"Oturum tel no ile açıldı Uid" + myAuth.currentUser!!.uid, Toast.LENGTH_SHORT).show()
 
                                 var userID =myAuth.currentUser?.uid.toString()
+
                                 //oturum açan kullanıcının verilerini database'e kayıt edelim
-                                var kaydedilecekKullanici = Users(gelenEmail,sifre, userName,adSoyad,userID)
+                                var kaydedilecekKullanici = Users(sifre,userName,adSoyad,telNo,sahteEmail,userID)
 
                                 myRef.child("users").child(userID).setValue(kaydedilecekKullanici)
                                     .addOnCompleteListener(object : OnCompleteListener<Void>{
                                         override fun onComplete(p0: Task<Void>) {
-                                            if (p0.isSuccessful){
+                                            if (p0!!.isSuccessful){
                                                 Toast.makeText(activity,"Kullanıcı kayıt edildi" , Toast.LENGTH_SHORT).show()
                                             }else{
                                                 Toast.makeText(activity,"Kullanıcı kayıt edilmedi" , Toast.LENGTH_SHORT).show()
-
                                             }
                                         }
 
                                     })
-
-
 
                             }else{
                                 Toast.makeText(activity,"Oturum açılamadı:" + p0.exception, Toast.LENGTH_SHORT).show()

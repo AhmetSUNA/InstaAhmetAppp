@@ -63,8 +63,6 @@ class RegisterActivity : AppCompatActivity(), FragmentManager.OnBackStackChanged
         etGirisYontemi.addTextChangedListener(object : TextWatcher{
             override fun afterTextChanged(s: Editable?) {
 
-
-
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -92,8 +90,6 @@ class RegisterActivity : AppCompatActivity(), FragmentManager.OnBackStackChanged
 
             if(etGirisYontemi.hint.toString().equals("Telefon")){
 
-
-
                 if (isValidTelefon((etGirisYontemi.text.toString()))){
                     loginRoot.visibility = View.GONE
                     loginContainer.visibility = View.VISIBLE
@@ -105,13 +101,6 @@ class RegisterActivity : AppCompatActivity(), FragmentManager.OnBackStackChanged
                 }else{
                     Toast.makeText(this,"Lütfen geçerli bir telefon numarası giriniz", Toast.LENGTH_SHORT).show()
                 }
-
-                var transaction = supportFragmentManager.beginTransaction()
-                transaction.replace(R.id.loginContainer, TelefonKoduGirFragment())
-                transaction.addToBackStack("telefonKoduGirFragmenEklendi")
-                transaction.commit()
-
-                EventBus.getDefault().postSticky(EventBusDataEvents.KayitBilgileriniGonder(etGirisYontemi.text.toString(),null,null,null, false))
 
             }else{
                 if (isValidEmail((etGirisYontemi.text.toString()))){
