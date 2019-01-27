@@ -7,4 +7,73 @@
         android:layout_height="match_parent"
         tools:context=".Login.LoginActivity">
 
+    <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" app:srcCompat="@drawable/logo"
+            android:id="@+id/imageView" android:layout_marginTop="69dp"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+            app:layout_constraintHorizontal_bias="0.497"/>
+    <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:background="@drawable/register_edit_text"
+            android:padding="16dp"
+            android:textAllCaps="false"
+            android:ems="10"
+            android:id="@+id/etEmailTelOrUserName" android:layout_marginStart="24dp"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="24dp"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginTop="40dp"
+            app:layout_constraintTop_toBottomOf="@+id/imageView"
+            android:hint="Telefon numarası, e-posta veya kullanıcı adı" android:textSize="17sp"/>
+    <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:background="@drawable/register_edit_text"
+            android:padding="16dp"
+            android:ems="10"
+            android:id="@+id/etSifre" android:layout_marginStart="24dp"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="24dp"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/etEmailTelOrUserName" android:hint="Şifre"
+            android:textSize="17sp"/>
+    <Button
+            android:text="Giriş Yap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/register_button"
+            android:textColor="@color/sonukmavi"
+            android:enabled="false"
+            android:id="@+id/btnGirisYap" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="16dp"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="16dp" android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/etSifre"/>
+    <View android:layout_width="0dp"
+          android:layout_height="2dp"
+          android:id="@+id/golgelik1"
+          android:background="@color/golgelik"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="50dp">
+    </View>
+    <TextView
+            android:text="Hesabın yokmu?"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView17" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="125dp" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/golgelik1" android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.466"/>
+    <TextView
+            android:text="Kaydol"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvKaydol" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/golgelik1"
+            app:layout_constraintStart_toEndOf="@+id/textView17" android:layout_marginStart="8dp"
+            app:layout_constraintHorizontal_bias="0.07"
+            android:textStyle="bold" android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 </android.support.constraint.ConstraintLayout>

@@ -5,6 +5,7 @@ import ahmetsuna.com.instaahmetapp.Models.Users
 import ahmetsuna.com.instaahmetapp.R
 import ahmetsuna.com.instaahmetapp.utils.EventBusDataEvents
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
@@ -54,6 +55,12 @@ class KayitFragment : Fragment() {
             myAuth.signOut()
         }
 
+        view.tvGirisYap.setOnClickListener {
+            var intent = Intent(activity, LoginActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+            startActivity(intent)
+
+        }
+
         myRef = FirebaseDatabase.getInstance().reference
 
         view.etAdSoyad.addTextChangedListener(watcher)
@@ -72,9 +79,9 @@ class KayitFragment : Fragment() {
                 //kullanıcıAdı veri tabanında var ise kullanıcıAdı kontrolü
                 override fun onDataChange(p0: DataSnapshot) {
                     
-                    if (p0!!.getValue() != null){
+                    if (p0.getValue() != null){
                         
-                        for (user in p0!!.children){
+                        for (user in p0.children){
                             var okunanKullanici = user.getValue(Users::class.java)
                             if (okunanKullanici!!.user_name.equals(view.etKullaniciAdi.text.toString())){
                                 Toast.makeText(activity,"Kullanıcı adı kullanımda", Toast.LENGTH_SHORT).show()
@@ -106,7 +113,7 @@ class KayitFragment : Fragment() {
                                                 myRef.child("users").child(userID).setValue(kaydedilecekKullanici)
                                                     .addOnCompleteListener(object : OnCompleteListener<Void>{
                                                         override fun onComplete(p0: Task<Void>) {
-                                                            if (p0!!.isSuccessful){
+                                                            if (p0.isSuccessful){
                                                                 Toast.makeText(activity,"Kullanıcı kayıt edildi" , Toast.LENGTH_SHORT).show()
                                                                 progressBar.visibility = View.INVISIBLE
                                                             }else{
@@ -114,7 +121,7 @@ class KayitFragment : Fragment() {
                                                                 myAuth.currentUser!!.delete()
                                                                     .addOnCompleteListener(object : OnCompleteListener<Void>{
                                                                         override fun onComplete(p0: Task<Void>) {
-                                                                            if(p0!!.isSuccessful){
+                                                                            if(p0.isSuccessful){
                                                                                 Toast.makeText(activity,"Kullanıcı kayıt edilmedi, Tekrar deneyin" , Toast.LENGTH_SHORT).show()
                                                                             }
                                                                         }
@@ -157,7 +164,7 @@ class KayitFragment : Fragment() {
                                                 myRef.child("users").child(userID).setValue(kaydedilecekKullanici)
                                                     .addOnCompleteListener(object : OnCompleteListener<Void>{
                                                         override fun onComplete(p0: Task<Void>) {
-                                                            if (p0!!.isSuccessful){
+                                                            if (p0.isSuccessful){
                                                                 Toast.makeText(activity,"Kullanıcı kayıt edildi" , Toast.LENGTH_SHORT).show()
                                                                 progressBar.visibility = View.INVISIBLE
                                                             }else{
@@ -165,7 +172,7 @@ class KayitFragment : Fragment() {
                                                                 myAuth.currentUser!!.delete()
                                                                     .addOnCompleteListener(object : OnCompleteListener<Void>{
                                                                         override fun onComplete(p0: Task<Void>) {
-                                                                            if(p0!!.isSuccessful){
+                                                                            if(p0.isSuccessful){
                                                                                 Toast.makeText(activity,"Kullanıcı kayıt edilmedi, Tekrar deneyin" , Toast.LENGTH_SHORT).show()
                                                                             }
                                                                         }

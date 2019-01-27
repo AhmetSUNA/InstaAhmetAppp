@@ -3,6 +3,7 @@ package ahmetsuna.com.instaahmetapp.Login
 import ahmetsuna.com.instaahmetapp.Models.Users
 import ahmetsuna.com.instaahmetapp.R
 import ahmetsuna.com.instaahmetapp.utils.EventBusDataEvents
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.FragmentManager
 import android.support.v4.content.ContextCompat
@@ -31,9 +32,17 @@ class RegisterActivity : AppCompatActivity(), FragmentManager.OnBackStackChanged
         manager.addOnBackStackChangedListener(this)
 
         init()
+
     }
 
     private fun init() {
+
+        tvGirisYap.setOnClickListener {
+
+            var intent = Intent(this@RegisterActivity, LoginActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+            startActivity(intent)
+
+        }
 
         //e-posta ile giriş yapılacak ise
         tvEposta.setOnClickListener {
