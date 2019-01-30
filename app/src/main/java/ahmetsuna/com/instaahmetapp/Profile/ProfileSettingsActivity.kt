@@ -26,6 +26,7 @@ class ProfileSettingsActivity : AppCompatActivity() {
 
         tvProfilDüzenleHesapAyarlari.setOnClickListener {
             profileSettingsRoot.visibility = View.GONE
+            profileSettingsContainer.visibility = View.VISIBLE
             var transaction = supportFragmentManager.beginTransaction()
             transaction.replace(R.id.profileSettingsContainer, ProfileEditFragment())
             transaction.addToBackStack("editProfileFragmentEklendi")

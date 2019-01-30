@@ -12,6 +12,7 @@ class Users {
     var user_detail: UserDetails? = null
 
     constructor() {}
+
     constructor(
         email: String?,
         password: String?,

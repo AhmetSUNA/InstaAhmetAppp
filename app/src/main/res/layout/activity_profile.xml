@@ -9,7 +9,8 @@
 
     <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" android:id="@+id/profileRoot">
+            android:layout_height="match_parent"
+            android:id="@+id/profileRoot">
 
         <TextView
                 android:layout_width="wrap_content"
@@ -30,6 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" app:srcCompat="@drawable/ic_discover_people"
                 android:id="@+id/imageView2"
+                android:visibility="invisible"
                 app:layout_constraintTop_toTopOf="@+id/imgProfileSettings"
                 app:layout_constraintBottom_toBottomOf="@+id/imgProfileSettings"
                 app:layout_constraintEnd_toStartOf="@+id/imgProfileSettings" android:layout_marginEnd="16dp"/>
@@ -54,25 +56,24 @@
                 app:layout_constraintTop_toBottomOf="@+id/golgelik" android:layout_marginTop="16dp"
                 android:layout_marginStart="8dp" app:layout_constraintStart_toStartOf="parent"/>
         <TextView
-                android:text="35"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/tvPostSayisi"
                 app:layout_constraintStart_toEndOf="@+id/circleProfileImage" app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintEnd_toStartOf="@+id/tvFollowerSayisi" android:layout_marginTop="8dp"
                 app:layout_constraintTop_toTopOf="@+id/circleProfileImage" android:textStyle="bold"
-                android:textColor="@color/siyah" android:textAlignment="center" android:textSize="16sp"/>
+                android:textColor="@color/siyah" android:textAlignment="center" android:textSize="16sp"
+                android:text="12"/>
         <TextView
-                android:text="1204"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/tvFollowerSayisi"
                 app:layout_constraintStart_toEndOf="@+id/tvPostSayisi" app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintEnd_toStartOf="@+id/tvFollowingSayisi"
                 app:layout_constraintTop_toTopOf="@+id/tvPostSayisi" android:textStyle="bold"
-                android:textColor="@color/siyah" android:textAlignment="center" android:textSize="16sp"/>
+                android:textColor="@color/siyah" android:textAlignment="center" android:textSize="16sp"
+                android:text="123"/>
         <TextView
-                android:text="1358"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/tvFollowingSayisi"
@@ -83,7 +84,7 @@
                 android:textStyle="bold"
                 android:textColor="@color/siyah"
                 android:textAlignment="center"
-                android:textSize="16sp"/>
+                android:textSize="16sp" android:text="342"/>
         <TextView
                 android:text="gönderi"
                 android:layout_width="wrap_content"
@@ -191,7 +192,7 @@
             android:layout_height="match_parent" android:id="@+id/profileContainer"
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent"
-            android:visibility="invisible">
+            android:visibility="gone">
 
     </FrameLayout>
 </android.support.constraint.ConstraintLayout>

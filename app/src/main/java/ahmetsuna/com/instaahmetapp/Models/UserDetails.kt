@@ -2,16 +2,23 @@ package ahmetsuna.com.instaahmetapp.Models
 
 class UserDetails {
 
-    var follower : String? = null
-    var following : String? = null
-    var post : String? = null
+    var follower: String? = null
+    var following: String? = null
+    var post: String? = null
     var profile_picture: String? = null
     var biography: String? = null
     var web_site: String? = null
 
-    constructor(){}
+    constructor() {}
 
-    constructor(follower: String?, following: String?, post: String?, profile_picture: String?, biography: String?, web_site: String?) {
+    constructor(
+        follower: String?,
+        following: String?,
+        post: String?,
+        profile_picture: String?,
+        biography: String?,
+        web_site: String?
+    ) {
         this.follower = follower
         this.following = following
         this.post = post
