@@ -1,6 +1,7 @@
 package ahmetsuna.com.instaahmetapp.Login
 
 
+import ahmetsuna.com.instaahmetapp.Models.UserDetails
 import ahmetsuna.com.instaahmetapp.Models.Users
 import ahmetsuna.com.instaahmetapp.R
 import ahmetsuna.com.instaahmetapp.utils.EventBusDataEvents
@@ -49,11 +50,6 @@ class KayitFragment : Fragment() {
         progressBar = view.pbKullaniciKayit
 
         myAuth = FirebaseAuth.getInstance()
-
-        //sistemdeki kullanıcıyı atma
-        if(myAuth.currentUser != null){
-            myAuth.signOut()
-        }
 
         view.tvGirisYap.setOnClickListener {
             var intent = Intent(activity, LoginActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
@@ -108,7 +104,8 @@ class KayitFragment : Fragment() {
                                                 var userID =myAuth.currentUser?.uid.toString()
 
                                                 //oturum açan kullanıcının verilerini database'e kayıt edelim
-                                                var kaydedilecekKullanici = Users(gelenEmail,sifre,userName,adSoyad,"","",userID)
+                                                var kaydedilecekKullaniciDetaylari = UserDetails("0","0","0","","","")
+                                                var kaydedilecekKullanici = Users(gelenEmail,sifre,userName,adSoyad,"","",userID,kaydedilecekKullaniciDetaylari)
 
                                                 myRef.child("users").child(userID).setValue(kaydedilecekKullanici)
                                                     .addOnCompleteListener(object : OnCompleteListener<Void>{
@@ -159,7 +156,8 @@ class KayitFragment : Fragment() {
                                                 var userID =myAuth.currentUser?.uid.toString()
 
                                                 //oturum açan kullanıcının verilerini database'e kayıt edelim
-                                                var kaydedilecekKullanici = Users("",sifre,userName,adSoyad,telNo,sahteEmail,userID)
+                                                var kaydedilecekKullaniciDetaylari = UserDetails("0","0","0","","","")
+                                                var kaydedilecekKullanici = Users("",sifre,userName,adSoyad,telNo,sahteEmail,userID,kaydedilecekKullaniciDetaylari)
 
                                                 myRef.child("users").child(userID).setValue(kaydedilecekKullanici)
                                                     .addOnCompleteListener(object : OnCompleteListener<Void>{
