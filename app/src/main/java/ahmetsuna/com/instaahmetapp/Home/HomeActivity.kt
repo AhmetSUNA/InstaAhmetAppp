@@ -1,7 +1,6 @@
 package ahmetsuna.com.instaahmetapp.Home
 
 import ahmetsuna.com.instaahmetapp.R
-import ahmetsuna.com.instaahmetapp.utils.BottomNavigationViewHelper
 import ahmetsuna.com.instaahmetapp.utils.HomePagerAdapter
 import ahmetsuna.com.instaahmetapp.utils.UniversalImageLoader
 import android.os.Bundle
@@ -19,17 +18,17 @@ class HomeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_home)
 
         initImageLoader()
-        setupNavigationView()
+        //setupNavigationView()
         setupHomeViewPager()
     }
 
-    fun setupNavigationView() {
+    /*fun setupNavigationView() {
         BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationSettings)
         BottomNavigationViewHelper.setupNavigation(this, bottomNavigationSettings)
         var menu = bottomNavigationSettings.menu
         var menuItem = menu.getItem(ACTIVITY_NO)
         menuItem.setChecked(true)
-    }
+    }*/
 
     private fun setupHomeViewPager() {
 

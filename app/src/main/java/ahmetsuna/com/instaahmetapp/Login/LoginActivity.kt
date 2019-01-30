@@ -1,5 +1,6 @@
 package ahmetsuna.com.instaahmetapp.Login
 
+import ahmetsuna.com.instaahmetapp.Home.HomeActivity
 import ahmetsuna.com.instaahmetapp.Models.Users
 import ahmetsuna.com.instaahmetapp.R
 import android.content.Intent
@@ -20,10 +21,13 @@ class LoginActivity : AppCompatActivity() {
 
     lateinit var myAuth: FirebaseAuth
     lateinit var myRef: DatabaseReference
+    lateinit var myAuthListener: FirebaseAuth.AuthStateListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
+        setupAuthListener()
 
         myAuth = FirebaseAuth.getInstance()
         myRef = FirebaseDatabase.getInstance().reference
@@ -31,21 +35,23 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
+
+
     fun init() {
-
-        tvKaydol.setOnClickListener {
-
-            var intent = Intent(this, RegisterActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-            startActivity(intent)
-        }
 
         etEmailTelOrUserName.addTextChangedListener(watcher)
         etSifre.addTextChangedListener(watcher)
 
         btnGirisYap.setOnClickListener {
-
+            //kullanıcı veritabanında aranır, bulunursa giriş yapma denemesi yapılır
             oturumAcacakKullaniciyiDenetle(etEmailTelOrUserName.text.toString(), etSifre.text.toString())
+        }
 
+        tvKaydol.setOnClickListener {
+
+            var intent = Intent(this@LoginActivity, RegisterActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+            startActivity(intent)
+            finish()
         }
 
     }
@@ -61,22 +67,21 @@ class LoginActivity : AppCompatActivity() {
             }
 
             override fun onDataChange(p0: DataSnapshot) {
-                for (ds in p0.children) {
+                for (ds in p0!!.children) {
 
                     var okunanKullanici = ds.getValue(Users::class.java)
 
                     if (okunanKullanici!!.email!!.toString().equals(emailPhoneNumberUserName)) {
-
                         oturumAc(okunanKullanici, sifre, false)
                         kullaniciBulundu = true
                         break
 
-                    } else if (okunanKullanici.user_name!!.toString().equals(emailPhoneNumberUserName)) {
+                    } else if (okunanKullanici!!.user_name!!.toString().equals(emailPhoneNumberUserName)) {
                         oturumAc(okunanKullanici, sifre, false)
                         kullaniciBulundu = true
                         break
 
-                    } else if (okunanKullanici.phone_number!!.toString().equals(emailPhoneNumberUserName)) {
+                    } else if (okunanKullanici!!.phone_number!!.toString().equals(emailPhoneNumberUserName)) {
                         oturumAc(okunanKullanici, sifre, true)
                         kullaniciBulundu = true
                         break
@@ -93,20 +98,20 @@ class LoginActivity : AppCompatActivity() {
 
     private fun oturumAc(okunanKullanici: Users, sifre: String, telefonIleGiris: Boolean) {
 
-        var girisYApacakEmail = ""
+        var girisYapacakEmail = ""
 
         if (telefonIleGiris == true) {
 
-            girisYApacakEmail = okunanKullanici.email_phone_number.toString()
+            girisYapacakEmail = okunanKullanici.email_phone_number.toString()
         } else {
-            girisYApacakEmail = okunanKullanici.email.toString()
+            girisYapacakEmail = okunanKullanici.email.toString()
         }
 
-        myAuth.signInWithEmailAndPassword(girisYApacakEmail, sifre)
+        myAuth.signInWithEmailAndPassword(girisYapacakEmail, sifre)
             .addOnCompleteListener(object : OnCompleteListener<AuthResult> {
                 override fun onComplete(p0: Task<AuthResult>) {
 
-                    if (p0.isSuccessful) {
+                    if (p0!!.isSuccessful) {
                         Toast.makeText(
                             this@LoginActivity,
                             "Oturum açıldı" + myAuth.currentUser!!.uid,
@@ -146,5 +151,36 @@ class LoginActivity : AppCompatActivity() {
 
         }
 
+    }
+
+    private fun setupAuthListener() {
+        myAuthListener = object : FirebaseAuth.AuthStateListener{
+            override fun onAuthStateChanged(p0: FirebaseAuth) {
+                var user = FirebaseAuth.getInstance().currentUser
+
+                if (user != null){
+
+                    var intent = Intent(this@LoginActivity, HomeActivity::class.java)
+                        .addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                    startActivity(intent)
+                    finish()
+                }else{
+
+                }
+            }
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        myAuth.addAuthStateListener(myAuthListener)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        if (myAuthListener != null){
+            myAuth.removeAuthStateListener(myAuthListener)
+        }
     }
 }
