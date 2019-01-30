@@ -32,12 +32,12 @@ class ProfileSettingsActivity : AppCompatActivity() {
             transaction.commit()
         }
 
+        //uygulamadan çıkış yap textView
         tvCikisHesapAyarlari.setOnClickListener {
-            profileSettingsRoot.visibility = View.GONE
-            var transaction = supportFragmentManager.beginTransaction()
-            transaction.replace(R.id.profileSettingsContainer, SignOutFragment())
-            transaction.addToBackStack("signOutFragmentEklendi")
-            transaction.commit()
+
+            var dialog = SignOutFragment()
+            dialog.show(supportFragmentManager, "cikisYapDialogGoster")
+
         }
     }
 
@@ -53,9 +53,9 @@ class ProfileSettingsActivity : AppCompatActivity() {
     }
 
     private fun setupNavigationView() {
-        BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationSettings)
-        BottomNavigationViewHelper.setupNavigation(this, bottomNavigationSettings)
-        var menu = bottomNavigationSettings.menu
+        BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationView)
+        BottomNavigationViewHelper.setupNavigation(this, bottomNavigationView)
+        var menu = bottomNavigationView.menu
         var menuItem=menu.getItem(ACTIVITY_NO)
         menuItem.setChecked(true)
     }

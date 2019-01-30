@@ -20,9 +20,9 @@ class ShareActivity : AppCompatActivity() {
 
     fun setupNavigationView(){
 
-        BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationSettings)
-        BottomNavigationViewHelper.setupNavigation(this, bottomNavigationSettings)
-        var menu = bottomNavigationSettings.menu
+        BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationView)
+        BottomNavigationViewHelper.setupNavigation(this, bottomNavigationView)
+        var menu = bottomNavigationView.menu
         var menuItem=menu.getItem(ACTIVITY_NO)
         menuItem.setChecked(true)
     }

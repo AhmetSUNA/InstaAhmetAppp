@@ -9,6 +9,7 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.widget.Toast
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
@@ -19,8 +20,8 @@ import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
 
-    lateinit var myAuth: FirebaseAuth
     lateinit var myRef: DatabaseReference
+    lateinit var myAuth: FirebaseAuth
     lateinit var myAuthListener: FirebaseAuth.AuthStateListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,8 +35,6 @@ class LoginActivity : AppCompatActivity() {
         init()
 
     }
-
-
 
     fun init() {
 
@@ -102,9 +101,9 @@ class LoginActivity : AppCompatActivity() {
 
         if (telefonIleGiris == true) {
 
-            girisYapacakEmail = okunanKullanici.email_phone_number.toString()
+            girisYapacakEmail = okunanKullanici.email_phone_number!!.toString()
         } else {
-            girisYapacakEmail = okunanKullanici.email.toString()
+            girisYapacakEmail = okunanKullanici.email!!.toString()
         }
 
         myAuth.signInWithEmailAndPassword(girisYapacakEmail, sifre)
@@ -152,35 +151,37 @@ class LoginActivity : AppCompatActivity() {
         }
 
     }
-
     private fun setupAuthListener() {
-        myAuthListener = object : FirebaseAuth.AuthStateListener{
+        myAuthListener=object : FirebaseAuth.AuthStateListener{
             override fun onAuthStateChanged(p0: FirebaseAuth) {
-                var user = FirebaseAuth.getInstance().currentUser
+                var user=FirebaseAuth.getInstance().currentUser
 
-                if (user != null){
+                if(user != null){
 
-                    var intent = Intent(this@LoginActivity, HomeActivity::class.java)
-                        .addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                    var intent=Intent(this@LoginActivity, HomeActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
                     startActivity(intent)
                     finish()
-                }else{
+                }else {
+
 
                 }
             }
+
         }
     }
 
     override fun onStart() {
         super.onStart()
+        Log.e("HATA","LoginActivitydesin")
         myAuth.addAuthStateListener(myAuthListener)
     }
 
     override fun onStop() {
         super.onStop()
-        if (myAuthListener != null){
+        if(myAuthListener != null){
             myAuth.removeAuthStateListener(myAuthListener)
         }
     }
+
 }

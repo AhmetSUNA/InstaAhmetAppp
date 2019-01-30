@@ -24,7 +24,7 @@ class RegisterActivity : AppCompatActivity(), FragmentManager.OnBackStackChanged
     lateinit var manager: FragmentManager
     lateinit var myRef: DatabaseReference
     lateinit var myAuth: FirebaseAuth
-    lateinit var myAuthListener: FirebaseAuth.AuthStateListener
+    lateinit var myAuthListener:FirebaseAuth.AuthStateListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +32,7 @@ class RegisterActivity : AppCompatActivity(), FragmentManager.OnBackStackChanged
 
         setupAuthListener()
 
-        myAuth = FirebaseAuth.getInstance()
+        myAuth= FirebaseAuth.getInstance()
         myRef = FirebaseDatabase.getInstance().reference
 
         manager = supportFragmentManager
@@ -242,34 +242,28 @@ class RegisterActivity : AppCompatActivity(), FragmentManager.OnBackStackChanged
     }
 
     private fun setupAuthListener() {
-        myAuthListener = object : FirebaseAuth.AuthStateListener{
+        myAuthListener=object : FirebaseAuth.AuthStateListener{
             override fun onAuthStateChanged(p0: FirebaseAuth) {
-                var user = FirebaseAuth.getInstance().currentUser
-
-                if (user != null){
-
-                    var intent = Intent(this@RegisterActivity, HomeActivity::class.java)
-                        .addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                var user= FirebaseAuth.getInstance().currentUser
+                if(user != null){
+                    var intent=Intent(this@RegisterActivity, HomeActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
                     startActivity(intent)
                     finish()
-                }else{
-
+                }else {
                 }
             }
         }
     }
-
     override fun onStart() {
         super.onStart()
         myAuth.addAuthStateListener(myAuthListener)
     }
-
     override fun onStop() {
         super.onStop()
-        if (myAuthListener != null){
+        if(myAuthListener != null){
             myAuth.removeAuthStateListener(myAuthListener)
         }
     }
+
 
 }

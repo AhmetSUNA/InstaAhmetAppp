@@ -15,8 +15,9 @@
                 android:layout_height="50dp"
                 android:layout_width="match_parent"
                 android:background="@color/toolbar_color"
-
-        >
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
 
             <android.support.design.widget.CollapsingToolbarLayout
                     android:layout_width="match_parent"
@@ -93,7 +94,7 @@
                 android:background="@color/golgelik"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toTopOf="@+id/bottomNavigationSettings" android:id="@+id/view">
+                app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView" android:id="@+id/view">
 
         </View>
 
@@ -103,7 +104,7 @@
                 app:menu="@menu/bottom_navigation_menu"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
-                android:id="@+id/bottomNavigationSettings">
+                android:id="@+id/bottomNavigationView">
 
         </com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx>
 

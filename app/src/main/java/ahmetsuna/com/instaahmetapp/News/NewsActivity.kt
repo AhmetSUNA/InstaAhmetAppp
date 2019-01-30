@@ -14,16 +14,16 @@ class NewsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_register)
+        setContentView(R.layout.activity_home)
 
-        //setupNavigationView()
+        setupNavigationView()
     }
 
     fun setupNavigationView(){
 
-        BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationSettings)
-        BottomNavigationViewHelper.setupNavigation(this, bottomNavigationSettings)
-        var menu = bottomNavigationSettings.menu
+        BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationView)
+        BottomNavigationViewHelper.setupNavigation(this, bottomNavigationView)
+        var menu = bottomNavigationView.menu
         var menuItem=menu.getItem(ACTIVITY_NO)
         menuItem.setChecked(true)
     }
