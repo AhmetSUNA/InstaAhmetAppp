@@ -47,6 +47,9 @@ class ProfileActivity : AppCompatActivity() {
 
     private fun kullaniciBilgileriniGetir() {
 
+        tvProfilDuzenleButonu.isEnabled = false
+        imgProfileSettings.isEnabled = false
+
         //addValueEventListener realtime olarak verileri günceller
         myRef.child("users").child(myUser!!.uid).addValueEventListener(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
@@ -60,6 +63,9 @@ class ProfileActivity : AppCompatActivity() {
                     var okunanKullaniciBilgileri = p0!!.getValue(Users::class.java)
 
                     EventBus.getDefault().postSticky(EventBusDataEvents.KullaniciBilgileriniGonder(okunanKullaniciBilgileri))
+
+                    tvProfilDuzenleButonu.isEnabled = true
+                    imgProfileSettings.isEnabled = true
 
                     tvProfileAdiToolbar.setText(okunanKullaniciBilgileri!!.user_name)
                     tvProfilGercekAdi.setText(okunanKullaniciBilgileri!!.adi_soyadi)
@@ -102,7 +108,7 @@ class ProfileActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        tvProfilDuzenleButunu.setOnClickListener {
+        tvProfilDuzenleButonu.setOnClickListener {
 
             profileRoot.visibility = View.INVISIBLE
             profileContainer.visibility = View.VISIBLE
