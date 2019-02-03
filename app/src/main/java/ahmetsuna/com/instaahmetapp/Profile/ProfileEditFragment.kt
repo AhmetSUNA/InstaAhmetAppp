@@ -24,9 +24,9 @@ import org.greenrobot.eventbus.Subscribe
 class ProfileEditFragment : Fragment() {
 
     lateinit var circliProfileImageFragment: CircleImageView
-    lateinit var gelenKullaniciBilgileri:Users
-    lateinit var myDatabaseRef:DatabaseReference
-    val RESİM_SEC=100
+    lateinit var gelenKullaniciBilgileri: Users
+    lateinit var myDatabaseRef: DatabaseReference
+    val RESİM_SEC = 100
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -52,21 +52,25 @@ class ProfileEditFragment : Fragment() {
 
         view.imgBtnKayit.setOnClickListener {
 
-            if (!gelenKullaniciBilgileri!!.adi_soyadi!!.equals(view.etProfilName.text.toString())){
-                myDatabaseRef.child("users").child(gelenKullaniciBilgileri!!.user_id!!).child("adi_soyadi").setValue(view.etProfilName.text.toString())
+            if (!gelenKullaniciBilgileri.adi_soyadi!!.equals(view.etProfilName.text.toString())) {
+                myDatabaseRef.child("users").child(gelenKullaniciBilgileri.user_id!!).child("adi_soyadi")
+                    .setValue(view.etProfilName.text.toString())
             }
 
-            if (!gelenKullaniciBilgileri!!.user_detail!!.biography.equals(view.etUserBiyografi.text.toString())){
-                myDatabaseRef.child("users").child(gelenKullaniciBilgileri!!.user_id!!).child("user_detail").child("biography").setValue(view.etUserBiyografi.text.toString())
+            if (!gelenKullaniciBilgileri.user_detail!!.biography.equals(view.etUserBiyografi.text.toString())) {
+                myDatabaseRef.child("users").child(gelenKullaniciBilgileri.user_id!!).child("user_detail")
+                    .child("biography").setValue(view.etUserBiyografi.text.toString())
             }
-            if (!gelenKullaniciBilgileri!!.user_detail!!.web_site.equals(view.etUserWebSite.text.toString())){
-                myDatabaseRef.child("users").child(gelenKullaniciBilgileri!!.user_id!!).child("user_detail").child("web_site").setValue(view.etUserWebSite.text.toString())
+            if (!gelenKullaniciBilgileri.user_detail!!.web_site.equals(view.etUserWebSite.text.toString())) {
+                myDatabaseRef.child("users").child(gelenKullaniciBilgileri.user_id!!).child("user_detail")
+                    .child("web_site").setValue(view.etUserWebSite.text.toString())
             }
-            if (!gelenKullaniciBilgileri!!.user_name!!.equals(view.etUserName.text.toString())){
-                myDatabaseRef.child("users").orderByChild("user_name").addListenerForSingleValueEvent(object : ValueEventListener{
-                    override fun onCancelled(p0: DatabaseError) {
+            if (!gelenKullaniciBilgileri.user_name!!.equals(view.etUserName.text.toString())) {
+                myDatabaseRef.child("users").orderByChild("user_name")
+                    .addListenerForSingleValueEvent(object : ValueEventListener {
+                        override fun onCancelled(p0: DatabaseError) {
 
-                    }
+                        }
 
                     override fun onDataChange(p0: DataSnapshot) {
 
@@ -77,14 +81,15 @@ class ProfileEditFragment : Fragment() {
                             var okunanKullaniciAdi = ds!!.getValue(Users::class.java)!!.user_name
                             //Log.e("HATA","okunan kullanici adı: " + okunanKullaniciAdi)
 
-                            if(okunanKullaniciAdi!!.equals(view.etUserName.text.toString())){
-                                Toast.makeText(activity,"Kullanıcı adı kullanımda", Toast.LENGTH_SHORT).show()
-                                userNameKullanimdaMi==true
-                                break
+                                if (okunanKullaniciAdi!!.equals(view.etUserName.text.toString())) {
+                                    Toast.makeText(activity, "Kullanıcı adı kullanımda", Toast.LENGTH_SHORT).show()
+                                    userNameKullanimdaMi = true
+                                    break
+                                }
                             }
-                        }
-                        if (userNameKullanimdaMi==false){
-                            myDatabaseRef.child("users").child(gelenKullaniciBilgileri!!.user_id!!).child("user_name").setValue(view.etUserName.text.toString())
+                            if (userNameKullanimdaMi == false) {
+                                myDatabaseRef.child("users").child(gelenKullaniciBilgileri!!.user_id!!)
+                                    .child("user_name").setValue(view.etUserName.text.toString())
 
                         }
 
