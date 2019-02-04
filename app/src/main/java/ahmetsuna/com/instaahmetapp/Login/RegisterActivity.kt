@@ -124,9 +124,9 @@ class RegisterActivity : AppCompatActivity(), FragmentManager.OnBackStackChanged
                         //telno veri tabanında var ise telno kontrolü
                         override fun onDataChange(p0: DataSnapshot) {
 
-                            if (p0!!.getValue() != null) {
+                            if (p0.getValue() != null) {
 
-                                for (user in p0!!.children) {
+                                for (user in p0.children) {
 
                                     var okunanKullanici = user.getValue(Users::class.java)
                                     if (okunanKullanici!!.phone_number!!.equals(etGirisYontemi.text.toString())) {
@@ -223,7 +223,7 @@ class RegisterActivity : AppCompatActivity(), FragmentManager.OnBackStackChanged
 
     }
 
-    fun isValidEmail(kontrolEdilecekMail: String): Boolean {
+    fun isValidEmail(kontrolEdilecekMail: String?): Boolean {
 
         if (kontrolEdilecekMail == null) {
             return false
@@ -232,7 +232,7 @@ class RegisterActivity : AppCompatActivity(), FragmentManager.OnBackStackChanged
 
     }
 
-    fun isValidTelefon(kontrolEdilecekTelefon: String): Boolean {
+    fun isValidTelefon(kontrolEdilecekTelefon: String?): Boolean {
 
         if (kontrolEdilecekTelefon == null || kontrolEdilecekTelefon.length > 14) {
             return false

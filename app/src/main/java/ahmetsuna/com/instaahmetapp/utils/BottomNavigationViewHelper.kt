@@ -12,6 +12,7 @@ import android.support.design.widget.BottomNavigationView
 import android.view.MenuItem
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx
 
+@Suppress("DEPRECATION")
 class BottomNavigationViewHelper {
 
     companion object {

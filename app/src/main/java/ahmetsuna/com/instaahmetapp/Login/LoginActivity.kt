@@ -66,7 +66,7 @@ class LoginActivity : AppCompatActivity() {
             }
 
             override fun onDataChange(p0: DataSnapshot) {
-                for (ds in p0!!.children) {
+                for (ds in p0.children) {
 
                     var okunanKullanici = ds.getValue(Users::class.java)
 
@@ -75,12 +75,12 @@ class LoginActivity : AppCompatActivity() {
                         kullaniciBulundu = true
                         break
 
-                    } else if (okunanKullanici!!.user_name!!.toString().equals(emailPhoneNumberUserName)) {
+                    } else if (okunanKullanici.user_name!!.toString().equals(emailPhoneNumberUserName)) {
                         oturumAc(okunanKullanici, sifre, false)
                         kullaniciBulundu = true
                         break
 
-                    } else if (okunanKullanici!!.phone_number!!.toString().equals(emailPhoneNumberUserName)) {
+                    } else if (okunanKullanici.phone_number!!.toString().equals(emailPhoneNumberUserName)) {
                         oturumAc(okunanKullanici, sifre, true)
                         kullaniciBulundu = true
                         break
@@ -110,7 +110,7 @@ class LoginActivity : AppCompatActivity() {
             .addOnCompleteListener(object : OnCompleteListener<AuthResult> {
                 override fun onComplete(p0: Task<AuthResult>) {
 
-                    if (p0!!.isSuccessful) {
+                    if (p0.isSuccessful) {
                         Toast.makeText(
                             this@LoginActivity,
                             "Oturum açıldı" + myAuth.currentUser!!.uid,

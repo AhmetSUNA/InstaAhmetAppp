@@ -1,10 +1,10 @@
 package ahmetsuna.com.instaahmetapp.Share
 
 import ahmetsuna.com.instaahmetapp.R
-import ahmetsuna.com.instaahmetapp.utils.BottomNavigationViewHelper
+import ahmetsuna.com.instaahmetapp.utils.SharePagerAdapter
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.activity_share.*
 
 class ShareActivity : AppCompatActivity() {
 
@@ -13,17 +13,29 @@ class ShareActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
+        setContentView(R.layout.activity_share)
 
-        setupNavigationView()
+        setupShareViewPager()
+
+
     }
 
-    fun setupNavigationView(){
+    private fun setupShareViewPager() {
 
-        BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationView)
-        BottomNavigationViewHelper.setupNavigation(this, bottomNavigationView)
-        var menu = bottomNavigationView.menu
-        var menuItem=menu.getItem(ACTIVITY_NO)
-        menuItem.setChecked(true)
+        var tabAdlari = ArrayList<String>()
+        tabAdlari.add("GALERİ")
+        tabAdlari.add("KAMERA")
+        tabAdlari.add("VİDEO")
+
+        var sharePagerAdapter = SharePagerAdapter(supportFragmentManager, tabAdlari)
+        sharePagerAdapter.addFragment(ShareGalleryFragment())
+        sharePagerAdapter.addFragment(ShareCameraFragment())
+        sharePagerAdapter.addFragment(ShareVideoFragment())
+
+        shareViewPager.adapter = sharePagerAdapter
+
+        shareTabLayout.setupWithViewPager(shareViewPager)
+
     }
+
 }

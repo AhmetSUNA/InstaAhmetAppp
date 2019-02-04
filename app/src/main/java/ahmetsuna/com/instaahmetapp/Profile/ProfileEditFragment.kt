@@ -189,15 +189,15 @@ class ProfileEditFragment : Fragment() {
         view!!.etProfilName.setText(gelenKullaniciBilgileri.adi_soyadi)
         view!!.etUserName.setText(gelenKullaniciBilgileri.user_name)
 
-        if (!gelenKullaniciBilgileri!!.user_detail!!.biography!!.isNullOrEmpty()) {
-            view!!.etUserBiyografi.setText(gelenKullaniciBilgileri!!.user_detail!!.biography)
+        if (!gelenKullaniciBilgileri.user_detail!!.biography!!.isNullOrEmpty()) {
+            view!!.etUserBiyografi.setText(gelenKullaniciBilgileri.user_detail!!.biography)
         }
-        if (!gelenKullaniciBilgileri!!.user_detail!!.web_site!!.isNullOrEmpty()) {
-            view!!.etUserWebSite.setText(gelenKullaniciBilgileri!!.user_detail!!.web_site)
+        if (!gelenKullaniciBilgileri.user_detail!!.web_site!!.isNullOrEmpty()) {
+            view!!.etUserWebSite.setText(gelenKullaniciBilgileri.user_detail!!.web_site)
         }
 
-        var imgURL = gelenKullaniciBilgileri!!.user_detail!!.profile_picture
-        UniversalImageLoader.setImage(imgURL!!, view!!.circleProfileImage, view!!.progressBar, "")
+        var imgURL = gelenKullaniciBilgileri.user_detail!!.profile_picture
+        UniversalImageLoader.setImage(imgURL!!, view.circleProfileImage, view.progressBar, "")
 
     }
 
