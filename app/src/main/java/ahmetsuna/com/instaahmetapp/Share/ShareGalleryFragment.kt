@@ -2,9 +2,11 @@ package ahmetsuna.com.instaahmetapp.Share
 
 
 import ahmetsuna.com.instaahmetapp.R
+import ahmetsuna.com.instaahmetapp.utils.DosyaIslemleri
 import android.os.Bundle
 import android.os.Environment
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,6 +40,12 @@ class ShareGalleryFragment : Fragment() {
         spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
         view.spnKlasorAdlari.adapter = spinnerArrayAdapter
+
+        var klasordekiDosyalar = DosyaIslemleri.klasordekiDosyalariGetir(kameraResimleri)
+
+        for (str in klasordekiDosyalar){
+            Log.e("HATA",str)
+        }
 
 
         return view
