@@ -3,14 +3,16 @@ package ahmetsuna.com.instaahmetapp.Share
 
 import ahmetsuna.com.instaahmetapp.R
 import ahmetsuna.com.instaahmetapp.utils.DosyaIslemleri
+import ahmetsuna.com.instaahmetapp.utils.ShareActivityGridViewAdapter
 import android.os.Bundle
 import android.os.Environment
 import android.support.v4.app.Fragment
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import kotlinx.android.synthetic.main.fragment_share_gallery.*
 import kotlinx.android.synthetic.main.fragment_share_gallery.view.*
 
 class ShareGalleryFragment : Fragment() {
@@ -41,11 +43,25 @@ class ShareGalleryFragment : Fragment() {
 
         view.spnKlasorAdlari.adapter = spinnerArrayAdapter
 
-        var klasordekiDosyalar = DosyaIslemleri.klasordekiDosyalariGetir(kameraResimleri)
+        view.spnKlasorAdlari.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onNothingSelected(p0: AdapterView<*>?) {
 
-        for (str in klasordekiDosyalar){
-            Log.e("HATA",str)
+            }
+
+            override fun onItemSelected(p0: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                var klasordekiDosyalar = DosyaIslemleri.klasordekiDosyalariGetir(klasorPaths.get(position))
+
+                var gridViewAdapter = ShareActivityGridViewAdapter(activity!!, R.layout.tek_sutun_grid_resim, klasordekiDosyalar)
+
+                gridResimler.adapter = gridViewAdapter
+
+                /*for (str in klasordekiDosyalar){
+                    Log.e("HATA",str)
+                }*/
+            }
         }
+
+
 
 
         return view
