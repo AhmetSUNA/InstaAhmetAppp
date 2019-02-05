@@ -1,6 +1,7 @@
 package ahmetsuna.com.instaahmetapp.utils
 
 import java.io.File
+import java.util.*
 
 class DosyaIslemleri {
 
@@ -17,6 +18,25 @@ class DosyaIslemleri {
 
             //parametre olarak gönderdiğimin klasor yolunda eleman olup olmadığı kontrol edildi
             if (klasordekiTumDosyalar != null){
+
+                //galeriden getirilen resimlerin tarihe göre sondan başa listelenmesi
+                if (klasordekiTumDosyalar.size>1){
+
+                    Arrays.sort(klasordekiTumDosyalar, object : Comparator<File>{
+                        override fun compare(p0: File?, p1: File?): Int {
+
+                            if (p0!!.lastModified() > p1!!.lastModified()){
+
+                                return -1
+                            }else{
+                                return 1
+                            }
+
+                        }
+
+
+                    })
+                }
 
                 for (i in 0..klasordekiTumDosyalar.size-1){
 

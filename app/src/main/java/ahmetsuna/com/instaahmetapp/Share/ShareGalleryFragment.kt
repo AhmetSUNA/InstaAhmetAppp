@@ -4,6 +4,7 @@ package ahmetsuna.com.instaahmetapp.Share
 import ahmetsuna.com.instaahmetapp.R
 import ahmetsuna.com.instaahmetapp.utils.DosyaIslemleri
 import ahmetsuna.com.instaahmetapp.utils.ShareActivityGridViewAdapter
+import ahmetsuna.com.instaahmetapp.utils.UniversalImageLoader
 import android.os.Bundle
 import android.os.Environment
 import android.support.v4.app.Fragment
@@ -26,19 +27,23 @@ class ShareGalleryFragment : Fragment() {
         var klasorAdlari = ArrayList<String>()
 
         var root = Environment.getExternalStorageDirectory().path
+
+        var ozelResimler = root + "/Pictures/Ozel"
         var kameraResimleri = root + "/DCIM/Camera"
         var indirilenResimler = root + "/Download"
         var whatsappResimleri = root + "/WhatsApp/Media/WhatsApp Images"
 
+        klasorPaths.add(ozelResimler)
         klasorPaths.add(kameraResimleri)
         klasorPaths.add(indirilenResimler)
         klasorPaths.add(whatsappResimleri)
 
+        klasorAdlari.add("Özel")
         klasorAdlari.add("Kamera")
         klasorAdlari.add("İndirilenler")
         klasorAdlari.add("WhatsApp")
 
-        var spinnerArrayAdapter = ArrayAdapter(activity, android.R.layout.simple_spinner_item, klasorAdlari)
+        var spinnerArrayAdapter = ArrayAdapter(activity!!, android.R.layout.simple_spinner_item, klasorAdlari)
         spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
         view.spnKlasorAdlari.adapter = spinnerArrayAdapter
@@ -49,21 +54,28 @@ class ShareGalleryFragment : Fragment() {
             }
 
             override fun onItemSelected(p0: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                var klasordekiDosyalar = DosyaIslemleri.klasordekiDosyalariGetir(klasorPaths.get(position))
 
-                var gridViewAdapter = ShareActivityGridViewAdapter(activity!!, R.layout.tek_sutun_grid_resim, klasordekiDosyalar)
+                setupGridView(DosyaIslemleri.klasordekiDosyalariGetir(klasorPaths.get(position)))
 
-                gridResimler.adapter = gridViewAdapter
-
-                /*for (str in klasordekiDosyalar){
-                    Log.e("HATA",str)
-                }*/
             }
         }
 
-
-
-
         return view
+    }
+
+    fun setupGridView(secilenKlasordekiDosyalar : ArrayList<String>){
+
+        var gridViewAdapter = ShareActivityGridViewAdapter(this.activity!!, R.layout.tek_sutun_grid_resim, secilenKlasordekiDosyalar)
+
+        gridResimler.adapter = gridViewAdapter
+
+        gridResimler.setOnItemClickListener(object : AdapterView.OnItemClickListener{
+            override fun onItemClick(p0: AdapterView<*>?, view: View?, position: Int, id: Long) {
+
+                UniversalImageLoader.setImage(secilenKlasordekiDosyalar.get(position), imgBuyukResim, null, "file:/")
+
+            }
+
+        })
     }
 }
