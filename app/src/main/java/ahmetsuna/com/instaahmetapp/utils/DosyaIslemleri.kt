@@ -31,10 +31,7 @@ class DosyaIslemleri {
                             }else{
                                 return 1
                             }
-
                         }
-
-
                     })
                 }
 
@@ -68,6 +65,5 @@ class DosyaIslemleri {
 
 
         }
-
     }
 }
