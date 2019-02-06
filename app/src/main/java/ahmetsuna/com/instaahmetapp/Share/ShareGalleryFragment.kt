@@ -3,6 +3,7 @@ package ahmetsuna.com.instaahmetapp.Share
 
 import ahmetsuna.com.instaahmetapp.R
 import ahmetsuna.com.instaahmetapp.utils.DosyaIslemleri
+import ahmetsuna.com.instaahmetapp.utils.EventBusDataEvents
 import ahmetsuna.com.instaahmetapp.utils.ShareActivityGridViewAdapter
 import ahmetsuna.com.instaahmetapp.utils.UniversalImageLoader
 import android.net.Uri
@@ -14,10 +15,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import kotlinx.android.synthetic.main.activity_share.*
 import kotlinx.android.synthetic.main.fragment_share_gallery.*
 import kotlinx.android.synthetic.main.fragment_share_gallery.view.*
+import org.greenrobot.eventbus.EventBus
 
 class ShareGalleryFragment : Fragment() {
+
+    var secilenResimYolu: String? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -29,19 +34,19 @@ class ShareGalleryFragment : Fragment() {
 
         var root = Environment.getExternalStorageDirectory().path
 
+        var indirilenResimler = root + "/Download"
         var ozelResimler = root + "/Pictures/Ozel"
         var kameraResimleri = root + "/DCIM/Camera"
-        var indirilenResimler = root + "/Download"
         var whatsappResimleri = root + "/WhatsApp/Media/WhatsApp Images"
 
+        klasorPaths.add(indirilenResimler)
         klasorPaths.add(ozelResimler)
         klasorPaths.add(kameraResimleri)
-        klasorPaths.add(indirilenResimler)
         klasorPaths.add(whatsappResimleri)
 
+        klasorAdlari.add("İndirilenler")
         klasorAdlari.add("Özel")
         klasorAdlari.add("Kamera")
-        klasorAdlari.add("İndirilenler")
         klasorAdlari.add("WhatsApp")
 
         var spinnerArrayAdapter = ArrayAdapter(activity!!, android.R.layout.simple_spinner_item, klasorAdlari)
@@ -64,6 +69,22 @@ class ShareGalleryFragment : Fragment() {
             }
         }
 
+        view.tvIleriButton.setOnClickListener {
+
+            activity!!.anaLayout.visibility = View.GONE
+            activity!!.fragmenContainerLayout.visibility = View.VISIBLE
+            var transaction = activity!!.supportFragmentManager.beginTransaction()
+
+            EventBus.getDefault().postSticky(EventBusDataEvents.PaylasilacakResmiGonder(secilenResimYolu))
+
+
+
+            transaction.replace(R.id.fragmenContainerLayout, ShareNextFragment())
+            transaction.addToBackStack("shareNextFragmentEklendi")
+            transaction.commit()
+
+        }
+
         return view
     }
 
@@ -74,12 +95,13 @@ class ShareGalleryFragment : Fragment() {
         gridResimler.adapter = gridViewAdapter
 
         //ilk açıldığında ilk dosya gösterilir
+        secilenResimYolu = secilenKlasordekiDosyalar.get(0)
         resimVeyaVideoGoster(secilenKlasordekiDosyalar.get(0))
 
         gridResimler.setOnItemClickListener(object : AdapterView.OnItemClickListener{
             override fun onItemClick(p0: AdapterView<*>?, view: View?, position: Int, id: Long) {
-
-                resimVeyaVideoGoster(secilenKlasordekiDosyalar.get(position))
+            secilenResimYolu= secilenKlasordekiDosyalar.get(position)
+            resimVeyaVideoGoster(secilenKlasordekiDosyalar.get(position))
 
             }
 

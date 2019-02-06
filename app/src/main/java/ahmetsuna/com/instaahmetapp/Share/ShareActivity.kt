@@ -4,6 +4,7 @@ import ahmetsuna.com.instaahmetapp.R
 import ahmetsuna.com.instaahmetapp.utils.SharePagerAdapter
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.View
 import kotlinx.android.synthetic.main.activity_share.*
 
 class ShareActivity : AppCompatActivity() {
@@ -23,6 +24,7 @@ class ShareActivity : AppCompatActivity() {
     private fun setupShareViewPager() {
 
         var tabAdlari = ArrayList<String>()
+
         tabAdlari.add("GALERİ")
         tabAdlari.add("KAMERA")
         tabAdlari.add("VİDEO")
@@ -36,6 +38,13 @@ class ShareActivity : AppCompatActivity() {
 
         shareTabLayout.setupWithViewPager(shareViewPager)
 
+    }
+
+    override fun onBackPressed() {
+
+        anaLayout.visibility = View.VISIBLE
+        fragmenContainerLayout.visibility = View.GONE
+        super.onBackPressed()
     }
 
 }
