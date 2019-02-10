@@ -75,7 +75,7 @@ class ShareGalleryFragment : Fragment() {
             activity!!.fragmenContainerLayout.visibility = View.VISIBLE
             var transaction = activity!!.supportFragmentManager.beginTransaction()
 
-            EventBus.getDefault().postSticky(EventBusDataEvents.PaylasilacakResmiGonder(secilenResimYolu))
+            EventBus.getDefault().postSticky(EventBusDataEvents.PaylasilacakResmiGonder(secilenResimYolu) )
 
 
 

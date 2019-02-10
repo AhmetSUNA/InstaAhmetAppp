@@ -58,6 +58,9 @@ dependencies {
     //crop image view
     implementation 'com.naver.android.helloyako:imagecropview:1.2.0'
 
+    //runtime permission library
+    implementation 'com.karumi:dexter:5.0.0'
+
 
 }
 

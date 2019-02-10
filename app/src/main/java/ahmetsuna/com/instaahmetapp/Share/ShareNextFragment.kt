@@ -35,7 +35,7 @@ import org.greenrobot.eventbus.Subscribe
 class ShareNextFragment : Fragment() {
 
     var secilenResimYolu:String? = null
-    lateinit var fileURI: Uri
+    lateinit var photoURI: Uri
 
     lateinit var myAuth: FirebaseAuth
     lateinit var myUser: FirebaseUser
@@ -51,7 +51,7 @@ class ShareNextFragment : Fragment() {
 
         UniversalImageLoader.setImage(secilenResimYolu!!, view!!.imgSecilenResim, null, "file://")
 
-        fileURI = Uri.parse("file://" + secilenResimYolu)
+        photoURI = Uri.parse("file://" + secilenResimYolu)
 
         myAuth = FirebaseAuth.getInstance()
         myUser = myAuth.currentUser!!
@@ -64,9 +64,9 @@ class ShareNextFragment : Fragment() {
             dialogYukleniyor.show(activity!!.supportFragmentManager, "yukleniyor")
             dialogYukleniyor.isCancelable = false
 
-            var ref =myStorageReference.child("users").child(myUser.uid).child(fileURI.lastPathSegment)
+            var ref =myStorageReference.child("users").child(myUser.uid).child(photoURI.lastPathSegment)
 
-            var uploadTask = ref.putFile(fileURI)
+            var uploadTask = ref.putFile(photoURI)
             val urlTask = uploadTask.continueWithTask(Continuation<UploadTask.TaskSnapshot, Task<Uri>> { task ->
                 if (!task.isSuccessful) {
                     task.exception?.let {
