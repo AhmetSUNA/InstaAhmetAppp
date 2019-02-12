@@ -23,6 +23,7 @@ import org.greenrobot.eventbus.EventBus
 class ShareGalleryFragment : Fragment() {
 
     var secilenResimYolu: String? = null
+    var dosyaTuruResimmi: Boolean? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -75,7 +76,7 @@ class ShareGalleryFragment : Fragment() {
             activity!!.fragmenContainerLayout.visibility = View.VISIBLE
             var transaction = activity!!.supportFragmentManager.beginTransaction()
 
-            EventBus.getDefault().postSticky(EventBusDataEvents.PaylasilacakResmiGonder(secilenResimYolu) )
+            EventBus.getDefault().postSticky(EventBusDataEvents.PaylasilacakResmiGonder(secilenResimYolu, dosyaTuruResimmi) )
 
 
 
@@ -118,12 +119,14 @@ class ShareGalleryFragment : Fragment() {
 
                 videoView.visibility = View.VISIBLE
                 imgCropView.visibility = View.GONE
+                dosyaTuruResimmi = false
                 videoView.setVideoURI(Uri.parse("file://" + dosyaYolu))
                 videoView.start()
             }else{
 
                 videoView.visibility = View.GONE
                 imgCropView.visibility = View.VISIBLE
+                dosyaTuruResimmi = true
                 UniversalImageLoader.setImage(dosyaYolu, imgCropView, null, "file://")
             }
         }

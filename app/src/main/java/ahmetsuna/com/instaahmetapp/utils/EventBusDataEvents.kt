@@ -9,5 +9,5 @@ class EventBusDataEvents {
 
     internal class KullaniciBilgileriniGonder(var kullanici: Users?)
 
-    internal class PaylasilacakResmiGonder(var resimYolu: String?)
+    internal class PaylasilacakResmiGonder(var resimYolu: String?, var dosyaTuruResimmi: Boolean?)
 }
