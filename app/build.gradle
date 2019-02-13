@@ -64,6 +64,9 @@ dependencies {
     //silCompresor dosya sıkıştırma programı
     implementation 'com.iceteck.silicompressorr:silicompressor:2.2.1'
 
+    //resim ve video view
+    implementation 'com.otaliastudios:cameraview:1.5.1'
+
 
 }
 
