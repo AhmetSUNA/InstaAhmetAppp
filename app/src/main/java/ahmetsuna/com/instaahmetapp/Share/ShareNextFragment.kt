@@ -35,7 +35,7 @@ import org.greenrobot.eventbus.Subscribe
 
 class ShareNextFragment : Fragment() {
 
-    var secilenResimYolu: String? = null
+    var secilenDosyaYolu: String? = null
     var dosyaTuruResimmi: Boolean? = null
     lateinit var photoURI: Uri
 
@@ -52,7 +52,7 @@ class ShareNextFragment : Fragment() {
 
         var view = inflater.inflate(R.layout.fragment_share_next, container, false)
 
-        UniversalImageLoader.setImage(secilenResimYolu!!, view!!.imgSecilenResim, null, "file://")
+        UniversalImageLoader.setImage(secilenDosyaYolu!!, view!!.imgSecilenResim, null, "file://")
 
         //photoURI = Uri.parse("file://" + secilenResimYolu)
 
@@ -66,11 +66,13 @@ class ShareNextFragment : Fragment() {
             //resim dosyasini sıkıştır
             if (dosyaTuruResimmi == true) {
 
-                DosyaIslemleri.compressResimDosya(this, secilenResimYolu)
+                DosyaIslemleri.compressResimDosya(this, secilenDosyaYolu)
 
             }
             //video dosyasını sıkıştır
             else if (dosyaTuruResimmi == false) {
+
+                DosyaIslemleri.compressVideoDosya(this, secilenDosyaYolu!!)
 
 
             }
@@ -93,8 +95,8 @@ class ShareNextFragment : Fragment() {
     ///////////////////////////////////EVENTBUS///////////////////////////////
 
     @Subscribe(sticky = true)
-    internal fun onSecilenResimEvent(secilenResim: EventBusDataEvents.PaylasilacakResmiGonder) {
-        secilenResimYolu = secilenResim!!.resimYolu!!
+    internal fun onSecilenDosyaEvent(secilenResim: EventBusDataEvents.PaylasilacakResmiGonder) {
+        secilenDosyaYolu = secilenResim!!.dosyaYolu!!
         dosyaTuruResimmi = secilenResim!!.dosyaTuruResimmi
     }
 
