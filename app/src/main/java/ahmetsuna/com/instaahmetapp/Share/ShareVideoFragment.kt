@@ -21,7 +21,7 @@ import java.io.File
 
 class ShareVideoFragment : Fragment() {
 
-    lateinit var videoView : CameraView
+    var videoView : CameraView? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -32,7 +32,7 @@ class ShareVideoFragment : Fragment() {
         var olusacakVideoDosyaAdi = System.currentTimeMillis()
         var olusacakVideoDosya = File(Environment.getExternalStorageDirectory().absolutePath + "/Pictures/Ozel/" + olusacakVideoDosyaAdi + ".mp4")
 
-        videoView.addCameraListener(object : CameraListener(){
+        videoView!!.addCameraListener(object : CameraListener(){
 
             override fun onVideoTaken(video: File?) {
                 super.onVideoTaken(video)
@@ -74,6 +74,11 @@ class ShareVideoFragment : Fragment() {
 
         })
 
+        view.imgClose.setOnClickListener {
+
+            activity!!.onBackPressed()
+        }
+
         return view
     }
 
@@ -93,6 +98,7 @@ class ShareVideoFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         Log.e("HATA2", "VİDEO FRAGMENTİ ON DESTROY")
+        if (videoView!=null)
         videoView!!.destroy()
 
     }

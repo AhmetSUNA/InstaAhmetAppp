@@ -2,7 +2,6 @@ package ahmetsuna.com.instaahmetapp.Share
 
 
 import ahmetsuna.com.instaahmetapp.Models.Posts
-import ahmetsuna.com.instaahmetapp.Profile.YukleniyorFragment
 import ahmetsuna.com.instaahmetapp.R
 import ahmetsuna.com.instaahmetapp.utils.DosyaIslemleri
 import ahmetsuna.com.instaahmetapp.utils.EventBusDataEvents
@@ -114,9 +113,9 @@ class ShareNextFragment : Fragment() {
 
         var fileUri = Uri.parse("file://"+filePath)
 
-        var dialogYukleniyor = YukleniyorFragment()
+        var dialogYukleniyor = CompressAndLoadingFragment()
 
-        dialogYukleniyor.show(activity!!.supportFragmentManager, "yukleniyor")
+        dialogYukleniyor.show(activity!!.supportFragmentManager, "compressLoadingyukleniyor")
         dialogYukleniyor.isCancelable = false
 
         var ref = myStorageReference.child("users").child(myUser.uid).child(fileUri.lastPathSegment)

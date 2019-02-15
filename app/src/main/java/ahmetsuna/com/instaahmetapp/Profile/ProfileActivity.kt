@@ -40,7 +40,6 @@ class ProfileActivity : AppCompatActivity() {
         myRef = FirebaseDatabase.getInstance().reference
 
         setupToolbar()
-        setupNavigationView()
         kullaniciBilgileriniGetir()
 
     }
@@ -118,6 +117,11 @@ class ProfileActivity : AppCompatActivity() {
             transaction.commit()
 
         }
+    }
+
+    override fun onResume() {
+        setupNavigationView()
+        super.onResume()
     }
 
     override fun onBackPressed() {

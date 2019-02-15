@@ -63,6 +63,11 @@ class ShareCameraFragment : Fragment() {
             }
         })
 
+        view.imgClose.setOnClickListener {
+
+            activity!!.onBackPressed()
+        }
+
 
         return view
     }
@@ -82,6 +87,8 @@ class ShareCameraFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         Log.e("HATA2", "CAMERA FRAGMENTİ ON DESTROY")
+
+        if (cameraView!=null)
         cameraView!!.destroy()
     }
 }
