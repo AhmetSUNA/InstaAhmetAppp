@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.fragment_share_video.view.*
 
 class ShareVideoFragment : Fragment() {
 
-    lateinit var videoView : CameraView
+    var videoView : CameraView? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -27,20 +27,20 @@ class ShareVideoFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         Log.e("HATA2", "VİDEO FRAGMENTİ ON RESUME")
-        videoView.start()
+        videoView!!.start()
     }
 
     override fun onPause() {
         super.onPause()
         Log.e("HATA2", "VİDEO FRAGMENTİ ON PAUSE")
-        videoView.stop()
+        videoView!!.stop()
 
     }
 
     override fun onDestroy() {
         super.onDestroy()
         Log.e("HATA2", "VİDEO FRAGMENTİ ON DESTROY")
-        videoView.destroy()
+        videoView!!.destroy()
 
     }
 
