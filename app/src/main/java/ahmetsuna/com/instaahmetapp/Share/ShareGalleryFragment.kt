@@ -4,12 +4,14 @@ package ahmetsuna.com.instaahmetapp.Share
 import ahmetsuna.com.instaahmetapp.R
 import ahmetsuna.com.instaahmetapp.utils.DosyaIslemleri
 import ahmetsuna.com.instaahmetapp.utils.EventBusDataEvents
-import ahmetsuna.com.instaahmetapp.utils.ShareActivityGridViewAdapter
+import ahmetsuna.com.instaahmetapp.utils.ShareActivityGalleryRecylerViewAdapter
 import ahmetsuna.com.instaahmetapp.utils.UniversalImageLoader
+import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.support.v4.app.Fragment
+import android.support.v7.widget.GridLayoutManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -20,10 +22,11 @@ import kotlinx.android.synthetic.main.activity_share.*
 import kotlinx.android.synthetic.main.fragment_share_gallery.*
 import kotlinx.android.synthetic.main.fragment_share_gallery.view.*
 import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 
 class ShareGalleryFragment : Fragment() {
 
-    var secilenResimYolu: String? = null
+    var secilenDosyaYolu: String? = null
     var dosyaTuruResimmi: Boolean? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -66,8 +69,9 @@ class ShareGalleryFragment : Fragment() {
 
             override fun onItemSelected(p0: AdapterView<*>?, view: View?, position: Int, id: Long) {
 
-                setupGridView(DosyaIslemleri.klasordekiDosyalariGetir(klasorPaths.get(position)))
+                //setupGridView(DosyaIslemleri.klasordekiDosyalariGetir(klasorPaths.get(position)))
 
+                setupRecyclerView(DosyaIslemleri.klasordekiDosyalariGetir(klasorPaths.get(position)))
             }
         }
 
@@ -77,7 +81,7 @@ class ShareGalleryFragment : Fragment() {
             activity!!.fragmenContainerLayout.visibility = View.VISIBLE
             var transaction = activity!!.supportFragmentManager.beginTransaction()
 
-            EventBus.getDefault().postSticky(EventBusDataEvents.PaylasilacakResmiGonder(secilenResimYolu, dosyaTuruResimmi) )
+            EventBus.getDefault().postSticky(EventBusDataEvents.PaylasilacakResmiGonder(secilenDosyaYolu, dosyaTuruResimmi) )
             videoView.stopPlayback() //bir sonraki fragmentte video sesini durdurur
             transaction.replace(R.id.fragmenContainerLayout, ShareNextFragment())
             transaction.addToBackStack("shareNextFragmentEklendi")
@@ -94,17 +98,35 @@ class ShareGalleryFragment : Fragment() {
         return view
     }
 
-    fun setupGridView(secilenKlasordekiDosyalar : ArrayList<String>){
+    private fun setupRecyclerView(klasordekiDosyalar: java.util.ArrayList<String>) {
+
+        var recyclerViewAdapter = ShareActivityGalleryRecylerViewAdapter(klasordekiDosyalar, this.activity!!)
+        recyclerViewDosyalar.adapter = recyclerViewAdapter
+
+        var layoutManager = GridLayoutManager(this.activity, 4)
+        recyclerViewDosyalar.layoutManager = layoutManager
+
+        recyclerViewDosyalar.setHasFixedSize(true)
+        recyclerViewDosyalar.setItemViewCacheSize(30)
+
+
+        //ilk açıldığında ilk dosya gösterilir
+        secilenDosyaYolu = klasordekiDosyalar.get(0)
+        resimVeyaVideoGoster(secilenDosyaYolu!!)
+
+    }
+
+    /*fun setupGridView(secilenKlasordekiDosyalar : ArrayList<String>){
 
         var gridViewAdapter = ShareActivityGridViewAdapter(this.activity!!, R.layout.tek_sutun_grid_resim, secilenKlasordekiDosyalar)
 
-        gridResimler.adapter = gridViewAdapter
+        recylerViewDosyalar.adapter = gridViewAdapter
 
         //ilk açıldığında ilk dosya gösterilir
         secilenResimYolu = secilenKlasordekiDosyalar.get(0)
         resimVeyaVideoGoster(secilenKlasordekiDosyalar.get(0))
 
-        gridResimler.setOnItemClickListener(object : AdapterView.OnItemClickListener{
+        recylerViewDosyalar.setOnItemClickListener(object : AdapterView.OnItemClickListener{
             override fun onItemClick(p0: AdapterView<*>?, view: View?, position: Int, id: Long) {
             secilenResimYolu= secilenKlasordekiDosyalar.get(position)
             resimVeyaVideoGoster(secilenKlasordekiDosyalar.get(position))
@@ -113,6 +135,7 @@ class ShareGalleryFragment : Fragment() {
 
         })
     }
+*/
 
     private fun resimVeyaVideoGoster(dosyaYolu: String) {
 
@@ -155,4 +178,24 @@ class ShareGalleryFragment : Fragment() {
         super.onDestroy()
         Log.e("HATA2", "GALERY FRAGMENTI ON DESTROY")
     }
+
+    ///////////////////////////////////EVENTBUS///////////////////////////////
+
+    @Subscribe
+    internal fun onSecilenDosyaEvent(secilenDosya: EventBusDataEvents.GaleriSecilenDosyaYoluGonder) {
+        secilenDosyaYolu = secilenDosya!!.dosyaYolu
+
+        resimVeyaVideoGoster(secilenDosyaYolu!!)
+    }
+
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        EventBus.getDefault().register(this)
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        EventBus.getDefault().unregister(this)
+    }
 }
+
