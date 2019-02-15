@@ -43,7 +43,7 @@ class ShareCameraFragment : Fragment() {
 
                 var cekilenFotoAdi = System.currentTimeMillis()
                 //gelen degeri nereye yazacagımıza dair dosya oluştur
-                var cekilenFoto = File(Environment.getExternalStorageDirectory().absolutePath + "/DCIM/Ozel/" + cekilenFotoAdi + ".jpg")
+                var cekilenFoto = File(Environment.getExternalStorageDirectory().absolutePath + "/Pictures/Ozel/" + cekilenFotoAdi + ".jpg")
 
                 //gelen değeride streama aktararak, foto write edilir
                 var dosyaOlustur =FileOutputStream(cekilenFoto)
