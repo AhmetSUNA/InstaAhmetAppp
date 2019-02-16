@@ -2,7 +2,6 @@ package ahmetsuna.com.instaahmetapp.Home
 
 import ahmetsuna.com.instaahmetapp.Login.LoginActivity
 import ahmetsuna.com.instaahmetapp.R
-import ahmetsuna.com.instaahmetapp.utils.BottomNavigationViewHelper
 import ahmetsuna.com.instaahmetapp.utils.HomePagerAdapter
 import ahmetsuna.com.instaahmetapp.utils.UniversalImageLoader
 import android.content.Intent
@@ -36,17 +35,11 @@ class HomeActivity : AppCompatActivity() {
     }
 
     override fun onResume() {
-        setupNavigationView()
+
         super.onResume()
     }
 
-    fun setupNavigationView() {
-        BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationView)
-        BottomNavigationViewHelper.setupNavigation(this, bottomNavigationView)
-        var menu = bottomNavigationView.menu
-        var menuItem = menu.getItem(ACTIVITY_NO)
-        menuItem.setChecked(true)
-    }
+
 
     private fun setupHomeViewPager() {
 

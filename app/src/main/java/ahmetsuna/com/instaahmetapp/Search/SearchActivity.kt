@@ -1,10 +1,8 @@
 package ahmetsuna.com.instaahmetapp.Search
 
 import ahmetsuna.com.instaahmetapp.R
-import ahmetsuna.com.instaahmetapp.utils.BottomNavigationViewHelper
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_home.*
 
 class SearchActivity : AppCompatActivity() {
 
@@ -15,15 +13,15 @@ class SearchActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        setupNavigationView()
+       // setupNavigationView()
     }
 
-    fun setupNavigationView(){
+    /*fun setupNavigationView(){
 
         BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationView)
         BottomNavigationViewHelper.setupNavigation(this, bottomNavigationView)
         var menu = bottomNavigationView.menu
         var menuItem=menu.getItem(ACTIVITY_NO)
         menuItem.setChecked(true)
-    }
+    }*/
 }

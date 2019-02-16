@@ -1,12 +1,14 @@
 package ahmetsuna.com.instaahmetapp.Share
 
 
+import ahmetsuna.com.instaahmetapp.Home.HomeActivity
 import ahmetsuna.com.instaahmetapp.Models.Posts
 import ahmetsuna.com.instaahmetapp.R
 import ahmetsuna.com.instaahmetapp.utils.DosyaIslemleri
 import ahmetsuna.com.instaahmetapp.utils.EventBusDataEvents
 import ahmetsuna.com.instaahmetapp.utils.UniversalImageLoader
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -77,6 +79,11 @@ class ShareNextFragment : Fragment() {
             }
         }
 
+        view.imgClose.setOnClickListener {
+
+            this.activity!!.onBackPressed()
+        }
+
         return view
     }
 
@@ -88,6 +95,9 @@ class ShareNextFragment : Fragment() {
 
         myRef.child("posts").child(myUser.uid).child(postID!!).setValue(yuklenenPost)
         myRef.child("posts").child(myUser.uid).child(postID).child("yuklenme_tarih").setValue(ServerValue.TIMESTAMP)
+
+        var intent = Intent(activity, HomeActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+        startActivity(intent)
 
     }
 
