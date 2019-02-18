@@ -12,4 +12,6 @@ class EventBusDataEvents {
     internal class PaylasilacakResmiGonder(var dosyaYolu: String?, var dosyaTuruResimmi: Boolean?)
 
     internal class GaleriSecilenDosyaYoluGonder(var dosyaYolu: String?)
+
+    internal class KameraIzinBilgisiGonder(var kameraIzniVerildiMi: Boolean?)
 }
