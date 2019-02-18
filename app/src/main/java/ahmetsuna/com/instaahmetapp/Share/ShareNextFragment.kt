@@ -91,7 +91,7 @@ class ShareNextFragment : Fragment() {
 
         var postID = myRef.child("posts").child(myUser.uid).push().key
 
-        var yuklenenPost = Posts(myUser.uid, postID, "", etPostAciklama.text.toString(), yuklenenFotoURL)
+        var yuklenenPost = Posts(myUser.uid, postID, 0, etPostAciklama.text.toString(), yuklenenFotoURL)
 
         myRef.child("posts").child(myUser.uid).child(postID!!).setValue(yuklenenPost)
         myRef.child("posts").child(myUser.uid).child(postID).child("yuklenme_tarih").setValue(ServerValue.TIMESTAMP)
