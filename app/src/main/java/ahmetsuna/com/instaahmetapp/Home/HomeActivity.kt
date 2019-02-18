@@ -90,7 +90,7 @@ class HomeActivity : AppCompatActivity() {
 
                     homePagerAdapter.secilenFragmentiViewPagerdanSil(homeViewPager,1)
                     homePagerAdapter.secilenFragmentiViewPagerdanSil(homeViewPager,2)
-                    kameraIzniIste()
+                    storageVeKameraIzniIste()
                     homePagerAdapter.secilenFragmentiViewPageraEkle(homeViewPager,0)
 
 
@@ -121,7 +121,7 @@ class HomeActivity : AppCompatActivity() {
         })
     }
 
-    private fun kameraIzniIste() {
+    private fun storageVeKameraIzniIste() {
 
         Dexter.withActivity(this)
             .withPermissions(
@@ -158,7 +158,6 @@ class HomeActivity : AppCompatActivity() {
                             override fun onClick(dialog: DialogInterface?, wich: Int) {
 
                                 dialog!!.cancel()
-
                                 homeViewPager.setCurrentItem(1)
                                 finish()
                             }
@@ -174,7 +173,7 @@ class HomeActivity : AppCompatActivity() {
                 ) {
 
 
-                    //Log.e("HATA", "izinlerden biri reddedilmiş, kullanıcıyı ikna et")
+                    Log.e("HATA", "izinlerden biri reddedilmiş, kullanıcıyı ikna et")
 
                     var builder = AlertDialog.Builder(this@HomeActivity)
                     builder.setTitle("İzin Gerekli")
@@ -205,7 +204,7 @@ class HomeActivity : AppCompatActivity() {
             })
             .withErrorListener(object  : PermissionRequestErrorListener{
                 override fun onError(error: DexterError?) {
-                    //Log.e("HATA", error!!.toString())
+                    Log.e("HATA", error!!.toString())
                 }
             }).check()
     }
