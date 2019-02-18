@@ -34,39 +34,41 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/imgPostResim"
-
+            android:maxHeight="350dp"
             android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/imgUserProfile"
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/imgBegen"/>
     <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp" app:srcCompat="@drawable/ic_begen"
-            android:id="@+id/imgBegen" android:layout_marginTop="8dp"
+            android:id="@+id/imgBegen" android:layout_marginTop="4dp"
             app:layout_constraintTop_toBottomOf="@+id/imgPostResim"
-            app:layout_constraintStart_toStartOf="@+id/imgPostResim"/>
+            app:layout_constraintStart_toStartOf="@+id/imgPostResim" android:layout_marginStart="8dp"/>
     <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp" app:srcCompat="@drawable/ic_yorum"
             android:id="@+id/imgYorum"
             app:layout_constraintStart_toEndOf="@+id/imgBegen"
             app:layout_constraintTop_toTopOf="@+id/imgBegen"
-            app:layout_constraintBottom_toBottomOf="@+id/imgBegen"/>
+            app:layout_constraintBottom_toBottomOf="@+id/imgBegen" android:layout_marginStart="4dp"/>
     <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp" app:srcCompat="@drawable/ic_gonder"
             android:id="@+id/imgGonder"
             app:layout_constraintTop_toTopOf="@+id/imgBegen" app:layout_constraintBottom_toBottomOf="@+id/imgBegen"
             app:layout_constraintVertical_bias="0.461" app:layout_constraintStart_toEndOf="@+id/imgYorum"
-    />
+            android:layout_marginStart="4dp"/>
     <TextView
             android:text="ahmet suna"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/tvKullaniciAdi" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="8dp" android:layout_marginTop="8dp"
+            android:id="@+id/tvKullaniciAdi"
+            android:layout_marginTop="8dp"
             app:layout_constraintTop_toBottomOf="@+id/imgBegen" android:textStyle="bold"
             android:textColor="@color/siyah" android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/imgBegen" android:layout_marginStart="4dp"
+            app:layout_constraintVertical_bias="0.0"/>
     <TextView
             android:text="açıklama"
             android:layout_width="0dp"
@@ -77,5 +79,12 @@
             app:layout_constraintBottom_toBottomOf="@+id/tvKullaniciAdi"
             app:layout_constraintTop_toTopOf="@+id/tvKullaniciAdi" app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="8dp"/>
+    <TextView
+            android:text="3 GÜN ÖNCE"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvKacZamanOnce" android:layout_marginTop="4dp"
+            app:layout_constraintTop_toBottomOf="@+id/tvKullaniciAdi"
+            app:layout_constraintStart_toStartOf="@+id/tvKullaniciAdi" android:textSize="8sp"/>
 
 </android.support.constraint.ConstraintLayout>

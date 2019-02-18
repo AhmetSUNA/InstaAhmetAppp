@@ -9,8 +9,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.tek_post_recycler_item.view.*
+import java.util.*
 
-class HomeFragmentRecyclerAdapter(var context:Context, var tumGonderiler: ArrayList<UserPosts>) : RecyclerView.Adapter<HomeFragmentRecyclerAdapter.MyViewHolder>() {
+class HomeFragmentRecyclerAdapter(var context: Context, var tumGonderiler: ArrayList<UserPosts>) :
+    RecyclerView.Adapter<HomeFragmentRecyclerAdapter.MyViewHolder>() {
+
+    init {
+
+        Collections.sort(tumGonderiler, object : Comparator<UserPosts>{
+            override fun compare(p0: UserPosts?, p1: UserPosts?): Int {
+
+                if (p0!!.postYuklenmeTarih!! > p1!!.postYuklenmeTarih!!){
+                    return -1
+                }else
+                    return 1
+            }
+        })
+    }
 
     //listede kaçtane eleman olacağını geri döner
     override fun getItemCount(): Int {
@@ -19,7 +34,7 @@ class HomeFragmentRecyclerAdapter(var context:Context, var tumGonderiler: ArrayL
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
 
-        var viewHolder = LayoutInflater.from(context).inflate(R.layout.tek_post_recycler_item, parent,false)
+        var viewHolder = LayoutInflater.from(context).inflate(R.layout.tek_post_recycler_item, parent, false)
 
         return MyViewHolder(viewHolder)
     }
@@ -41,6 +56,7 @@ class HomeFragmentRecyclerAdapter(var context:Context, var tumGonderiler: ArrayL
         var gonderi = tumLayout.imgPostResim
         var userName = tumLayout.tvKullaniciAdi
         var gonderiYorum = tumLayout.tvPostAciklama
+        var gonderiKacZamanOnce = tumLayout.tvKacZamanOnce
 
         fun setData(position: Int, oankiGonderi: UserPosts) {
 
@@ -49,6 +65,8 @@ class HomeFragmentRecyclerAdapter(var context:Context, var tumGonderiler: ArrayL
             userName.setText(oankiGonderi.userName)
             gonderiYorum.setText(oankiGonderi.postAciklama)
             UniversalImageLoader.setImage(oankiGonderi.userFotoURL!!, profileImage, null, "")
+            gonderiKacZamanOnce.setText(TimeAgo.getTimeAgo(oankiGonderi.postYuklenmeTarih!!))
+
         }
 
     }

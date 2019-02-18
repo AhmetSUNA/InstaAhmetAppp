@@ -18,6 +18,7 @@ import android.view.ViewGroup
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
+import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
 
 class HomeFragment : Fragment(){
@@ -43,6 +44,16 @@ class HomeFragment : Fragment(){
         tumGonderiler = ArrayList<UserPosts>()
 
         kullaniciPostlariniGetir(myUser.uid)
+
+        fragmentView.imgTabCamera.setOnClickListener {
+
+            (activity as HomeActivity).homeViewPager.setCurrentItem(0)
+        }
+        fragmentView.imgTabDirectMessage.setOnClickListener {
+
+            (activity as HomeActivity).homeViewPager.setCurrentItem(2)
+        }
+
 
         return fragmentView
     }
@@ -107,7 +118,7 @@ class HomeFragment : Fragment(){
 
         recylerView.adapter = recyclerAdapter
 
-        recylerView.layoutManager = LinearLayoutManager(this.activity!!,LinearLayoutManager.VERTICAL, true)
+        recylerView.layoutManager = LinearLayoutManager(this.activity!!,LinearLayoutManager.VERTICAL, false)
     }
 
     fun setupNavigationView() {
