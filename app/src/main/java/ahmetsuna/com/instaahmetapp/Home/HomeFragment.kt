@@ -6,9 +6,11 @@ import ahmetsuna.com.instaahmetapp.Models.UserPosts
 import ahmetsuna.com.instaahmetapp.Models.Users
 import ahmetsuna.com.instaahmetapp.R
 import ahmetsuna.com.instaahmetapp.utils.BottomNavigationViewHelper
+import ahmetsuna.com.instaahmetapp.utils.HomeFragmentRecyclerAdapter
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -86,13 +88,8 @@ class HomeFragment : Fragment(){
 
                             }
                         }
-                        Log.e("HATA", "boyut: " + tumGonderiler.size)
-                        for (item in tumGonderiler){
-                            Log.e("HATA", item.toString())
-                        }
+                        setupRecylerView()
                     }
-
-
                 })
 
 
@@ -101,6 +98,16 @@ class HomeFragment : Fragment(){
 
         })
 
+    }
+
+    private fun setupRecylerView() {
+
+        var recylerView = fragmentView.recylerView
+        var recyclerAdapter = HomeFragmentRecyclerAdapter(this.activity!!, tumGonderiler)
+
+        recylerView.adapter = recyclerAdapter
+
+        recylerView.layoutManager = LinearLayoutManager(this.activity!!,LinearLayoutManager.VERTICAL, true)
     }
 
     fun setupNavigationView() {

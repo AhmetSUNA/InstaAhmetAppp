@@ -83,6 +83,16 @@
             </android.support.design.widget.CollapsingToolbarLayout>
         </android.support.design.widget.AppBarLayout>
 
+        <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:id="@+id/recylerView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.517"
+                app:layout_constraintTop_toBottomOf="@+id/appbar"
+                app:layout_constraintBottom_toTopOf="@+id/view"></android.support.v7.widget.RecyclerView>
+
 
         <View
                 android:layout_width="0dp"
