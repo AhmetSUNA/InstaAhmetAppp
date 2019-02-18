@@ -1,5 +1,7 @@
 package ahmetsuna.com.instaahmetapp.utils
 
+import ahmetsuna.com.instaahmetapp.Generic.CommentFragment
+import ahmetsuna.com.instaahmetapp.Home.HomeActivity
 import ahmetsuna.com.instaahmetapp.Models.UserPosts
 import ahmetsuna.com.instaahmetapp.R
 import android.content.Context
@@ -8,6 +10,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.tek_post_recycler_item.view.*
 import java.util.*
 
@@ -36,7 +39,7 @@ class HomeFragmentRecyclerAdapter(var context: Context, var tumGonderiler: Array
 
         var viewHolder = LayoutInflater.from(context).inflate(R.layout.tek_post_recycler_item, parent, false)
 
-        return MyViewHolder(viewHolder)
+        return MyViewHolder(viewHolder, context)
     }
 
     //alanlara erişip gerekli veri atamalarının yapılması
@@ -48,7 +51,7 @@ class HomeFragmentRecyclerAdapter(var context: Context, var tumGonderiler: Array
     }
 
 
-    class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class MyViewHolder(itemView: View, myHomeActivity: Context) : RecyclerView.ViewHolder(itemView) {
 
         var tumLayout = itemView as ConstraintLayout
         var profileImage = tumLayout.imgUserProfile
@@ -57,6 +60,8 @@ class HomeFragmentRecyclerAdapter(var context: Context, var tumGonderiler: Array
         var userName = tumLayout.tvKullaniciAdi
         var gonderiYorum = tumLayout.tvPostAciklama
         var gonderiKacZamanOnce = tumLayout.tvKacZamanOnce
+        var yorumYap = tumLayout.imgYorum
+        var myHomeActivity = myHomeActivity
 
         fun setData(position: Int, oankiGonderi: UserPosts) {
 
@@ -67,6 +72,17 @@ class HomeFragmentRecyclerAdapter(var context: Context, var tumGonderiler: Array
             UniversalImageLoader.setImage(oankiGonderi.userFotoURL!!, profileImage, null, "")
             gonderiKacZamanOnce.setText(TimeAgo.getTimeAgo(oankiGonderi.postYuklenmeTarih!!))
 
+            yorumYap.setOnClickListener {
+
+                (myHomeActivity as HomeActivity).homeViewPager.visibility = View.INVISIBLE
+                (myHomeActivity as HomeActivity).homeFragmentContainer.visibility = View.VISIBLE
+
+
+                var transaction = (myHomeActivity as HomeActivity).supportFragmentManager.beginTransaction()
+                transaction.replace(R.id.homeFragmentContainer, CommentFragment())
+                transaction.addToBackStack("commentFragmentEklendi")
+                transaction.commit()
+            }
         }
 
     }

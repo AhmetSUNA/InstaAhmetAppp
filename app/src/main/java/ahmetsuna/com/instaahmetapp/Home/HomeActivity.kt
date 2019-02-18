@@ -14,6 +14,7 @@ import android.support.v4.view.ViewPager
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import android.view.View
 import android.view.WindowManager
 import com.google.firebase.auth.FirebaseAuth
 import com.karumi.dexter.Dexter
@@ -208,6 +209,24 @@ class HomeActivity : AppCompatActivity() {
                 }
             }).check()
     }
+
+    override fun onBackPressed() {
+
+        if (homeViewPager.currentItem == 1){
+            homeViewPager.visibility = View.VISIBLE
+            homeFragmentContainer.visibility = View.GONE
+            super.onBackPressed()
+        }
+        //fragmen 0veya2 deysek geri işleminde fragment1 e git
+        else{
+            homeViewPager.visibility = View.VISIBLE
+            homeFragmentContainer.visibility = View.GONE
+            homeViewPager.setCurrentItem(1)
+        }
+
+
+    }
+
     private fun initImageLoader() {
 
         var universalImageLoader = UniversalImageLoader(this)

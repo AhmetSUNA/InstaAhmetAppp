@@ -19,14 +19,13 @@ public class TimeAgo {
             return null;
         }
 
-        // TODO: localize
         final long diff = now - time;
         if (diff < MINUTE_MILLIS) {
             return "AZ ÖNCE";
         } else if (diff < 2 * MINUTE_MILLIS) {
             return "BİR DAKİKA ÖNCE";
         } else if (diff < 50 * MINUTE_MILLIS) {
-            return diff / MINUTE_MILLIS + "DAKİKA ÖNCE";
+            return diff / MINUTE_MILLIS + " DAKİKA ÖNCE";
         } else if (diff < 90 * MINUTE_MILLIS) {
             return "1 SAAT ÖNCE";
         } else if (diff < 24 * HOUR_MILLIS) {

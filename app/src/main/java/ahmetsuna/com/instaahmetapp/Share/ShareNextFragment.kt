@@ -96,6 +96,17 @@ class ShareNextFragment : Fragment() {
         myRef.child("posts").child(myUser.uid).child(postID!!).setValue(yuklenenPost)
         myRef.child("posts").child(myUser.uid).child(postID).child("yuklenme_tarih").setValue(ServerValue.TIMESTAMP)
 
+        //gönderi açıklamasını yorum düğümüne ekleyelim
+        if (!etPostAciklama.text.toString().isNullOrEmpty()){
+
+            //var yorumKey = myRef.child("comments").child(postID).push().key
+            myRef.child("comments").child(postID).child(postID).child("user_id").setValue(myUser.uid)
+            myRef.child("comments").child(postID).child(postID).child("yorum_tarih").setValue(ServerValue.TIMESTAMP)
+            myRef.child("comments").child(postID).child(postID).child("yorum").setValue(etPostAciklama.text.toString())
+            myRef.child("comments").child(postID).child(postID).child("yorum_begeni").setValue("0")
+
+        }
+
         var intent = Intent(activity, HomeActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
         startActivity(intent)
 
