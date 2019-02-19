@@ -1,6 +1,5 @@
 package ahmetsuna.com.instaahmetapp.utils
 
-import ahmetsuna.com.instaahmetapp.Generic.CommentFragment
 import ahmetsuna.com.instaahmetapp.Home.HomeActivity
 import ahmetsuna.com.instaahmetapp.Models.UserPosts
 import ahmetsuna.com.instaahmetapp.R
@@ -12,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.tek_post_recycler_item.view.*
+import org.greenrobot.eventbus.EventBus
 import java.util.*
 
 class HomeFragmentRecyclerAdapter(var context: Context, var tumGonderiler: ArrayList<UserPosts>) :
@@ -73,6 +73,8 @@ class HomeFragmentRecyclerAdapter(var context: Context, var tumGonderiler: Array
             gonderiKacZamanOnce.setText(TimeAgo.getTimeAgo(oankiGonderi.postYuklenmeTarih!!))
 
             yorumYap.setOnClickListener {
+
+                EventBus.getDefault().postSticky(EventBusDataEvents.YorumYapilacakGonderininIDsiniGonder(oankiGonderi!!.postID))
 
                 (myHomeActivity as HomeActivity).homeViewPager.visibility = View.INVISIBLE
                 (myHomeActivity as HomeActivity).homeFragmentContainer.visibility = View.VISIBLE

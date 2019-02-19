@@ -14,4 +14,6 @@ class EventBusDataEvents {
     internal class GaleriSecilenDosyaYoluGonder(var dosyaYolu: String?)
 
     internal class KameraIzinBilgisiGonder(var kameraIzniVerildiMi: Boolean?)
+
+    internal class YorumYapilacakGonderininIDsiniGonder(var gonderiID: String?)
 }
