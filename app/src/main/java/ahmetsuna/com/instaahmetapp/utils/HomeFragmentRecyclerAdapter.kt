@@ -1,5 +1,6 @@
 package ahmetsuna.com.instaahmetapp.utils
 
+import ahmetsuna.com.instaahmetapp.Generic.CommentFragment
 import ahmetsuna.com.instaahmetapp.Home.HomeActivity
 import ahmetsuna.com.instaahmetapp.Models.UserPosts
 import ahmetsuna.com.instaahmetapp.R

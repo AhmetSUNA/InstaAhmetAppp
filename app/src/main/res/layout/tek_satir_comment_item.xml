@@ -13,22 +13,22 @@
             android:layout_marginStart="16dp" android:layout_marginTop="16dp"
             app:layout_constraintTop_toTopOf="parent"/>
     <TextView
-            android:text="isim ve açıklama"
+            android:text="isim açıklama"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/tvUserNameAndYorum" app:layout_constraintStart_toEndOf="@+id/yorumYapanUserProfile"
             android:layout_marginStart="8dp"
             app:layout_constraintTop_toTopOf="@+id/yorumYapanUserProfile"
-            app:layout_constraintEnd_toStartOf="@+id/imageView4" android:layout_marginEnd="8dp"/>
+            app:layout_constraintEnd_toStartOf="@+id/imgBegen" android:layout_marginEnd="8dp"/>
     <ImageView
             android:layout_width="20dp"
             android:layout_height="20dp"
             app:srcCompat="@drawable/ic_begen"
-            android:id="@+id/imageView4" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+            android:id="@+id/imgBegen" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
             app:layout_constraintTop_toTopOf="@+id/yorumYapanUserProfile"
             app:layout_constraintBottom_toBottomOf="@+id/yorumYapanUserProfile"/>
     <TextView
-            android:text="1g"
+            android:text="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/tvYorumSure"
@@ -38,7 +38,7 @@
             android:text="81 beğenme"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textView21" app:layout_constraintStart_toEndOf="@+id/tvYorumSure"
+            android:id="@+id/tvBegenmeSayisi" app:layout_constraintStart_toEndOf="@+id/tvYorumSure"
             android:layout_marginStart="8dp"
             app:layout_constraintTop_toTopOf="@+id/tvYorumSure"
             app:layout_constraintBottom_toBottomOf="@+id/tvYorumSure" android:textStyle="bold"/>
@@ -48,6 +48,8 @@
             android:layout_height="1dp"
             android:background="@color/golgelik"
             android:id="@+id/golgelik1"
-            app:layout_constraintTop_toBottomOf="@+id/textView21" app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"></view>
+            app:layout_constraintTop_toBottomOf="@+id/tvBegenmeSayisi" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+    </view>
 </android.support.constraint.ConstraintLayout>

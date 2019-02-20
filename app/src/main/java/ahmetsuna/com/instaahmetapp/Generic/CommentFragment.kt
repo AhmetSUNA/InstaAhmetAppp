@@ -8,6 +8,7 @@ import android.content.Context
 import android.os.Bundle
 import android.support.constraint.ConstraintLayout
 import android.support.v4.app.Fragment
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +19,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import kotlinx.android.synthetic.main.fragment_comment.view.*
+import kotlinx.android.synthetic.main.tek_satir_comment_item.view.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 
@@ -28,6 +31,7 @@ class CommentFragment : Fragment() {
     lateinit var myAuth: FirebaseAuth
     lateinit var myUser: FirebaseUser
     lateinit var myRef: DatabaseReference
+    lateinit var myAdapter: FirebaseRecyclerAdapter<Comments, CommentViewHolder>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,7 +50,7 @@ class CommentFragment : Fragment() {
             .setQuery(myRef, Comments::class.java)
             .build()
 
-        var adapter =object : FirebaseRecyclerAdapter<Comments,CommentViewHolder>(options){
+        myAdapter =object : FirebaseRecyclerAdapter<Comments,CommentViewHolder>(options){
 
             override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommentViewHolder {
 
@@ -57,19 +61,34 @@ class CommentFragment : Fragment() {
 
             override fun onBindViewHolder(holder: CommentViewHolder, position: Int, model: Comments) {
 
+                holder.setData(model)
 
             }
-
-
         }
+
+        view.yorumlarRecyclerView.adapter = myAdapter
+        view.yorumlarRecyclerView.layoutManager = LinearLayoutManager(this!!.activity,LinearLayoutManager.VERTICAL, false)
 
         return view
     }
 
     class CommentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-
         var tumCommentLayoutu = itemView as ConstraintLayout
+        var yorumYapanUserPhoto = tumCommentLayoutu.yorumYapanUserProfile
+        var kullaniciAdiveYorum = tumCommentLayoutu.tvUserNameAndYorum
+        var yorumBegeni = tumCommentLayoutu.imgBegen
+        var yorumSure = tumCommentLayoutu.tvYorumSure
+        var yorumBegenmeSayisi = tumCommentLayoutu.tvBegenmeSayisi
+
+        fun setData(oAnOlusturulanYorum: Comments) {
+
+            kullaniciAdiveYorum.setText(oAnOlusturulanYorum.yorum)
+            yorumSure.setText("" + oAnOlusturulanYorum.yorum_tarih)
+            yorumBegenmeSayisi.setText(oAnOlusturulanYorum.yorum_begeni)
+
+        }
+
 
     }
     ///////////////////////////////////EVENTBUS///////////////////////////////
@@ -89,6 +108,16 @@ class CommentFragment : Fragment() {
     override fun onDetach() {
         super.onDetach()
         EventBus.getDefault().unregister(this)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        myAdapter.startListening()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        myAdapter.stopListening()
     }
 
 
